@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jokely: Write, Record Your Stand-up Jokes, Improve Stage performance</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* Header */
+        header {
+            background: #fff;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border-bottom: 3px solid #FFD93D;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .nav-left,
+        .nav-right {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-left a,
+        .nav-right a {
+            text-decoration: none;
+            color: #000;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s;
+            padding: 8px 16px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .nav-left a:hover,
+        .nav-right a:hover {
+            color: #E87449;
+            background: rgba(232, 116, 73, 0.1);
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 100px;
+            background: url("img/Image.png") center center / cover no-repeat;
+            border-radius: 30px;
+            padding: 150px 50px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            color: white;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+            margin-bottom: 60px; /* <--- ДОБАВЬТЕ ЭТУ СТРОКУ */
+            margin: 100px auto 60px auto;
+            max-width: 1400px;
+
+        }
+
+
+        .hero-illustration {
+            position: absolute;
+            left: 80px;
+            bottom: 50px;
+            width: 500px;
+            height: 400px;
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: 58px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 3px 15px rgba(0,0,0,0.2);
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 26px;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 50px;
+            background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 6px 25px rgba(74, 144, 226, 0.5);
+            transition: all 0.3s;
+            border: 3px solid rgba(255,255,255,0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(74, 144, 226, 0.6);
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        /* About Section */
+        .about {
+            background: linear-gradient(135deg, #FFD93D 0%, #FFC93D 100%);
+            padding: 120px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #E87449 0%, #FFD93D 50%, #E87449 100%);
+        }
+
+        .about-decoration {
+            position: absolute;
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.05));
+        }
+
+        .about-decoration.stool {
+            right: 100px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 200px;
+        }
+
+        .about-decoration.mic {
+            left: 50px;
+            bottom: 50px;
+            width: 100px;
+        }
+
+        .about h2 {
+            font-size: 46px;
+            font-weight: 400;
+            margin-bottom: 50px;
+            line-height: 1.5;
+            position: relative;
+            text-shadow: 2px 2px 0px rgba(107, 52, 16, 0.1);
+        }
+
+        .about h2 strong {
+            font-weight: 800;
+            color: #6B3410;
+        }
+
+        .about p {
+            font-size: 34px;
+            font-weight: 400;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0 auto 25px;
+            position: relative;
+        }
+
+        .about p strong {
+            font-weight: 800;
+            color: #6B3410;
+        }
+
+        /* Key Features Section */
+        .key-features {
+            padding: 120px 0;
+            background: linear-gradient(135deg, #FFD93D 0%, #FFC93D 100%);
+            position: relative;
+        }
+
+        .key-features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #E87449 0%, #FFD93D 50%, #E87449 100%);
+        }
+
+        .key-features h2 {
+            text-align: center;
+            font-size: 52px;
+            font-weight: 700;
+            margin-bottom: 80px;
+            position: relative;
+            color: #2a2a2a;
+            text-shadow: 2px 2px 0px rgba(232, 116, 73, 0.2);
+        }
+
+        .key-features h2::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: #E87449;
+            border-radius: 3px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 60px;
+            position: relative;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            transition: all 0.3s;
+            border: 3px solid transparent;
+        }
+
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.8);
+            border-color: #E87449;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 90px;
+            margin-bottom: 25px;
+            display: block;
+            filter: drop-shadow(3px 3px 0px #6B3410);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        .feature-card h3 {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #2a2a2a;
+        }
+
+        .feature-card p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #444;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 120px 0;
+            background: linear-gradient(to bottom, #f9f9f9 0%, #ffffff 100%);
+        }
+
+        .feature-row {
+            display: flex;
+            align-items: center;
+            gap: 80px;
+            margin-bottom: 120px;
+        }
+
+        .feature-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .feature-text {
+            flex: 1;
+            background: white;
+            padding: 60px;
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            border: 4px solid #2a2a2a;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .feature-text:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.12);
+        }
+
+        .feature-text::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            right: -4px;
+            width: 30px;
+            height: 30px;
+            border-bottom: 4px solid #2a2a2a;
+            border-right: 4px solid #2a2a2a;
+            border-bottom-right-radius: 25px;
+        }
+
+        .feature-text h3 {
+            font-size: 38px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            line-height: 1.2;
+            position: relative;
+            color: #2a2a2a;
+        }
+
+        .feature-text h3::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #4A90E2 0%, #E87449 100%);
+            border-radius: 2px;
+        }
+
+        .feature-text p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .feature-text ul {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .feature-text ul li {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .feature-text ul li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            font-size: 24px;
+            color: #E07A5F;
+        }
+
+        .feature-image {
+            flex: 1;
+            background: linear-gradient(135deg, #FFD93D 0%, #FFC93D 100%);
+            border-radius: 25px;
+            padding: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 4px solid #2a2a2a;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .feature-image:hover {
+            transform: scale(1.02);
+        }
+
+        .feature-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            border-radius: 21px;
+        }
+        .about-decoration.mic {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* чтобы изображение растянулось под фон */
+            z-index: -1; /* чтобы картинка была под текстом */
+        }
+        .phone-mockup {
+            max-width: 280px;
+            width: 100%;
+            border-radius: 45px;
+            border: 6px solid #2a2a2a;
+            background: white;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+            position: relative;
+            padding: 15px;
+            transition: transform 0.3s;
+        }
+
+        .phone-mockup:hover {
+            transform: translateY(-5px);
+        }
+
+        .phone-mockup::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 25px;
+            background: #2a2a2a;
+            border-radius: 20px;
+            z-index: 10;
+        }
+
+        .phone-screen {
+            background: linear-gradient(135deg, #f8f8f8 0%, #ffffff 100%);
+            border-radius: 35px;
+            padding: 50px 20px 40px;
+            min-height: 520px;
+            border: 2px solid #e0e0e0;
+        }
+
+        /* Reviews Section */
+        .reviews {
+            background: linear-gradient(135deg, #FFD93D 0%, #FFC93D 100%);
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reviews::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #E87449 0%, #FFD93D 50%, #E87449 100%);
+        }
+
+        .reviews h2 {
+            text-align: center;
+            font-size: 52px;
+            font-weight: 700;
+            margin-bottom: 70px;
+            position: relative;
+            color: #2a2a2a;
+            text-shadow: 2px 2px 0px rgba(232, 116, 73, 0.2);
+        }
+
+        .reviews h2::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: #E87449;
+            border-radius: 3px;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            position: relative;
+        }
+
+        .review-card {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 20px;
+            position: relative;
+            border: 4px solid #2a2a2a;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .review-icon {
+            width: 65px;
+            height: 65px;
+            background: linear-gradient(135deg, #E87449 0%, #D86439 100%);
+            border-radius: 50%;
+            margin-bottom: 25px;
+            border: 4px solid #2a2a2a;
+            box-shadow: 0 4px 15px rgba(232, 116, 73, 0.3);
+        }
+
+        .review-text {
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            color: #2a2a2a;
+            font-style: italic;
+        }
+
+        .review-author {
+            font-weight: 700;
+            margin-bottom: 5px;
+            font-size: 16px;
+            color: #2a2a2a;
+        }
+
+        .review-role {
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            background: linear-gradient(135deg, #FFD93D 0%, #FFC93D 100%);
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .pricing::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #E87449 0%, #FFD93D 50%, #E87449 100%);
+        }
+
+        .pricing h2 {
+            text-align: center;
+            font-size: 52px;
+            font-weight: 700;
+            margin-bottom: 70px;
+            position: relative;
+            color: #2a2a2a;
+            text-shadow: 2px 2px 0px rgba(232, 116, 73, 0.2);
+        }
+
+        .pricing h2::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: #E87449;
+            border-radius: 3px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            position: relative;
+        }
+
+        .pricing-card {
+            background: white;
+            padding: 50px 30px;
+            border-radius: 20px;
+            text-align: center;
+            border: 3px solid #2a2a2a;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pricing-card h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .price {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #E87449;
+        }
+
+        .price-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .price-features li {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #666;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .price-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4A90E2;
+            font-weight: bold;
+        }
+
+        .price-button {
+            display: inline-block;
+            padding: 14px 40px;
+            background: #4A90E2;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            border: 2px solid #2a2a2a;
+            box-shadow: 0 3px 10px rgba(74, 144, 226, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .price-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+        }
+
+        /* Contact Section */
+        .contact {
+            background: #f9f9f9;
+            padding: 100px 0;
+            text-align: center;
+        }
+        /* Новый контейнер для контактов */
+        .contact-links-wrapper {
+            display: flex;
+            flex-direction: row; /* Располагаем в строку */
+            justify-content: center; /* Центрируем по горизонтали */
+            align-items: center; /* Выравниваем по центру по вертикали */
+            gap: 30px; /* Пробел между почтой и соцсетями */
+            flex-wrap: wrap; /* Позволяем переноситься на новую строку на маленьких экранах */
+        }
+
+        /* Ссылка на Email */
+        .contact-email {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Пробел между иконкой и текстом почты */
+            color: #666;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .contact-email:hover {
+            color: #E87449; /* Цвет при наведении */
+        }
+
+        .contact-email .fas {
+            font-size: 22px; /* Размер иконки почты */
+        }
+
+        /* --- НОВЫЕ СТИЛИ ДЛЯ СОЦСЕТЕЙ --- */
+        .contact-socials {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 15px 25px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            font-size: 20px; /* Увеличил размер шрифта */
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .social-button .fab {
+            font-size: 30px; /* Крупные иконки */
+            margin-right: 15px;
+        }
+
+        .social-button.facebook {
+            background-color: #1877F2;
+        }
+
+        .social-button.instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+
+        .social-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        /* --- КОНЕЦ НОВЫХ СТИЛЕЙ ДЛЯ СОЦСЕТЕЙ --- */
+
+        .contact h2 {
+            font-size: 48px;
+            font-weight: 600;
+            margin-bottom: 40px;
+        }
+
+        .contact-info {
+            font-size: 18px;
+            color: #666;
+        }
+
+        /* Download Section */
+        .download-section {
+            /* Используем тот же фон, что и в .hero */
+            background: url("img/Image.png") center center / cover no-repeat;
+            padding: 100px 0;
+        }
+
+        .download-section h2 {
+            text-align: center;
+            font-size: 48px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .download-section p {
+            text-align: center;
+            font-size: 24px;
+            color: #666;
+            margin-bottom: 60px;
+        }
+
+        .download-form {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 18px 20px;
+            border: 2px solid #333;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: inherit;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #E87449;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .download-button {
+            display: block;
+            margin: 40px auto 0;
+            padding: 18px 60px;
+            background: #E87449;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(232, 116, 73, 0.3);
+        }
+
+        .download-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(232, 116, 73, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: #2a2a2a;
+            color: white;
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        .footer-content {
+            margin-bottom: 30px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .footer-links a {
+            color: #999;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #FFD93D;
+        }
+
+        .footer-bottom {
+            color: #666;
+            font-size: 14px;
+        }
+
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .feature-row {
+                flex-direction: column !important;
+            }
+
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-left,
+            .nav-right {
+                gap: 20px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+            <nav>
+            <ul class="nav-left">
+                <li><a href="#about">About</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="ClosedBlog.html">Blog</a></li>
+            </ul>
+            <div class="logo">
+               <img class="about-decoration mic" src="img/iconJokely.png" alt="iconJokely.png">
+            </div>
+            <ul class="nav-right">
+                <li><a href="#contacts">Contacts</a></li>
+                <li><a href="#reviews">Reviews</a></li>
+                <li><a href="#store">Store</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Jokely - The best app for stand-up comedy</h1>
+                <p>Work with humor</p>
+                <a href="#" class="cta-button">Get Jokely free</a>
+              <img class="about-decoration mic" src="img/hand.png" alt="Hand.png">
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <h2><strong>Jokely</strong> simplifies joke writing and strengthens stage performance</h2>
+                <p>Unlock your comedic potential with <strong>Jokely</strong>!</p>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <div class="feature-row">
+                    <div class="feature-text">
+                        <h3>Write Your Way to Comedy</h3>
+                        <p>With the Best Tool for Writing, Editing, and Performing Stand-Up Comedy</p>
+                    </div>
+                    <div class="feature-image">
+                        <div class="phone-mockup">
+                            <div class="phone-screen"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-row">
+                    <div class="feature-text">
+                        <h3>Next-level joke editor</h3>
+                        <p>Store all of your jokes in one place:</p>
+                        <ul>
+                            <li>Edit your jokes</li>
+                            <li>Use tags</li>
+                            <li>Add jokes to set</li>
+                            <li>AI joke editor</li>
+                        </ul>
+                    </div>
+                    <div class="feature-image">
+                        <div class="phone-mockup">
+                            <div class="phone-screen"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-row">
+                    <div class="feature-text">
+                        <h3>Record Your Performance</h3>
+                        <p>Capture your sets and review your delivery to continuously improve your comedy craft.</p>
+                    </div>
+                    <div class="feature-image">
+                        <div class="phone-mockup">
+                            <div class="phone-screen"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="key-features">
+            <div class="container">
+                <h2>Key Features</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <span class="feature-icon">✍️</span>
+                        <h3>Joke Editor</h3>
+                        <p>The most convenient joke editor on the market</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">🎤</span>
+                        <h3>Performance mode</h3>
+                        <p>Have the Set-List in front of you and we'll take care of the time tracking and recording</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">🎭</span>
+                        <h3>Shows</h3>
+                        <p>Create, manage and review shows</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">🎙️</span>
+                        <h3>Voice Transcription</h3>
+                        <p>Catch inspiration anywhere, anytime</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">📊</span>
+                        <h3>Analytics</h3>
+                        <p>Colorful Dashboards will ensure your daily improvement and rapid professional growth.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">🔄</span>
+                        <h3>Synchronization</h3>
+                        <p>Cross-Platform sync</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <div class="feature-row">
+                    <div class="feature-text">
+                        <h3>Write Your Way to Comedy</h3>
+                        <p>With the Best Tool for Writing, Editing, and Performing Stand-Up Comedy</p>
+                    </div>
+                    <div class="feature-image">
+                        <div class="phone-mockup">
+                            <div class="phone-screen"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-row">
+                    <div class="feature-text">
+                        <h3>Next-level joke editor</h3>
+                        <p>Store all of your jokes in one place:</p>
+                        <ul>
+                            <li>Edit your jokes</li>
+                            <li>Use tags</li>
+                            <li>Add jokes to set</li>
+                            <li>AI joke editor</li>
+                        </ul>
+                    </div>
+                    <div class="feature-image">
+                        <div class="phone-mockup">
+                            <div class="phone-screen"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-row">
+                    <div class="feature-text">
+                        <h3>Record Your Performance</h3>
+                        <p>Capture your sets and review your delivery to continuously improve your comedy craft.</p>
+                    </div>
+                    <div class="feature-image">
+                        <div class="phone-mockup">
+                            <div class="phone-screen"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="reviews" class="reviews">
+            <div class="container">
+                <h2>User reviews</h2>
+                <div class="reviews-grid">
+                    <div class="review-card">
+                        <div class="review-icon"></div>
+                        <p class="review-text">I didn't think I had a funny bone for writing, but Jokely proved me wrong. The character tools are weirdly fun, and it's great for sparking ridiculous ideas. Kind of feels like having a goofy writing buddy in my pocket</p>
+                        <div class="review-author">Ivan Grimsby</div>
+                        <div class="review-role">College Student & Humor Blogger</div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-icon"></div>
+                        <p class="review-text">As someone trying to make people laugh professionally, Jokely has been surprisingly helpful. The recording feature lets me catch mistakes before hitting the stage, and the organization tools keep my chaos somewhat manageable</p>
+                        <div class="review-author">Marcus Chen</div>
+                        <div class="review-role">Stand-Up Comedian</div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-icon"></div>
+                        <p class="review-text">Jokely makes writing comedy less intimidating. I love that I can jot down ideas whenever they hit me, and the app helps me turn those random thoughts into actual material</p>
+                        <div class="review-author">Sarah Mitchell</div>
+                        <div class="review-role">Open Mic Regular</div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-icon"></div>
+                        <p class="review-text">The best part about Jokely is how it helps me track which jokes actually work. I can see patterns in what makes people laugh and what falls flat. It's like having a comedy notebook that thinks</p>
+                        <div class="review-author">Alex Rodriguez</div>
+                        <div class="review-role">Comedy Writer</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="pricing">
+            <div class="container">
+                <h2 id="store">Choose your Plan</h2>
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <h3>Basic</h3>
+                        <div class="price">FREE</div>
+                        <ul class="price-features">
+                            <li>Unlimited jokes</li>
+                            <li>Basic editor</li>
+                            <li>Cloud sync</li>
+                            <li>Mobile app</li>
+                        </ul>
+                        <a href="#" class="price-button">Get Started</a>
+                    </div>
+                    <div class="pricing-card">
+                        <h3>Pro</h3>
+                        <div class="price">9.99 USD</div>
+                        <ul class="price-features">
+                            <li>Everything in Basic</li>
+                            <li>Recording feature</li>
+                            <li>AI joke suggestions</li>
+                            <li>Advanced analytics</li>
+                            <li>Priority support</li>
+                        </ul>
+                        <a href="#" class="price-button">Upgrade Now</a>
+                    </div>
+                    <div class="pricing-card">
+                        <h3>Premium</h3>
+                        <div class="price">79.99 USD</div>
+                        <ul class="price-features">
+                            <li>Everything in Pro</li>
+                            <li>Lifetime access</li>
+                            <li>All future updates</li>
+                            <li>Exclusive features</li>
+                            <li>VIP support</li>
+                        </ul>
+                        <a href="#" class="price-button">Buy Lifetime</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="download-section">
+            <div class="container">
+                <h2>Download the app and get started</h2>
+                <p>Take up comedy professionally!</p>
+                <form class="download-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Your name</label>
+                            <input type="text" id="name" name="name" placeholder="What's your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Your email</label>
+                            <input type="email" id="email" name="email" placeholder="What's your email" required>
+                        </div>
+                    </div>
+                    <div class="form-group full-width">
+                        <textarea name="message" placeholder="What do you want to tell?" rows="5"></textarea>
+                    </div>
+                    <button type="submit" class="download-button">Download now</button>
+                </form>
+            </div>
+        </section>
+
+      <section id="contacts" class="contact">
+        <div class="container">
+            <h2>Contact us</h2>
+
+            <div class="contact-links-wrapper">
+
+                <a href="mailto:Jokely.co@gmail.com" class="contact-email">
+                    <i class="fas fa-envelope"></i> <span>Jokely.co@gmail.com</span>
+                </a>
+
+                <div class="contact-socials">
+                    <a href="https://www.facebook.com/share/1TBTCm83Fs/?mibextid=wwXIfr" target="_blank" class="social-button facebook" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                        Facebook
+                    </a>
+                    <a href="https://www.instagram.com/jokelystandup/" target="_blank" class="social-button instagram" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                        Instagram
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <ul class="footer-links">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Support</a></li>
+                    <li><a href="https://www.facebook.com/share/1TBTCm83Fs/?mibextid=wwXIfr" target="_blank">Facebook</a></li>
+                    <li><a href="https://www.instagram.com/jokelystandup/" target="_blank">Instagram</a></li>
+                </ul>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Jokely. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
