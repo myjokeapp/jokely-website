@@ -1,1226 +1,416 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jokely: Write, Record Your Stand-up Jokes, Improve Stage performance</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
-            line-height: 1.6;
-            color: #000;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 40px;
-        }
-
-        /* Header */
-        header {
-            background: #fff;
-            padding: 20px 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
-            border-bottom: 3px solid #FFD93D;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 40px;
-        }
-
-        .nav-left,
-        .nav-right {
-            display: flex;
-            gap: 40px;
-            list-style: none;
-        }
-
-        .nav-left a,
-        .nav-right a {
-            text-decoration: none;
-            color: #000;
-            font-weight: 600;
-            font-size: 16px;
-            transition: all 0.3s;
-            padding: 8px 16px;
-            border-radius: 8px;
-            position: relative;
-        }
-
-        .nav-left a:hover,
-        .nav-right a:hover {
-            color: #E87449;
-            background: rgba(232, 116, 73, 0.1);
-        }
-
-        .logo {
-            width: 60px;
-            height: 60px;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-            transition: transform 0.3s;
-            cursor: pointer;
-        }
-
-        .logo:hover {
-            transform: scale(1.05);
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Hero Section */
-        .hero {
-            margin-top: 100px;
-            background: url("img/Image.png") center center / cover no-repeat;
-            border-radius: 30px;
-            padding: 150px 50px;
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-            color: white;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.15);
-            margin-bottom: 60px; /* <--- ДОБАВЬТЕ ЭТУ СТРОКУ */
-            margin: 100px auto 60px auto;
-            max-width: 1400px;
-
-        }
-
-
-        .hero-illustration {
-            position: absolute;
-            left: 80px;
-            bottom: 50px;
-            width: 500px;
-            height: 400px;
-            pointer-events: none;
-        }
-
-        .hero h1 {
-            font-size: 58px;
-            font-weight: 700;
-            margin-bottom: 30px;
-            position: relative;
-            z-index: 2;
-            text-shadow: 0 3px 15px rgba(0,0,0,0.2);
-            letter-spacing: -1px;
-        }
-
-        .hero p {
-            font-size: 26px;
-            margin-bottom: 40px;
-            position: relative;
-            z-index: 2;
-            font-weight: 300;
-            letter-spacing: 0.5px;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 18px 50px;
-            background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-size: 20px;
-            font-weight: 600;
-            position: relative;
-            z-index: 2;
-            box-shadow: 0 6px 25px rgba(74, 144, 226, 0.5);
-            transition: all 0.3s;
-            border: 3px solid rgba(255,255,255,0.3);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(74, 144, 226, 0.6);
-            border-color: rgba(255,255,255,0.5);
-        }
-
-        /* About Section */
-        .about {
-            background: linear-gradient(135deg, #FFD93D 0%, #FFC93D 100%);
-            padding: 120px 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .about::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, #E87449 0%, #FFD93D 50%, #E87449 100%);
-        }
-
-        .about-decoration {
-            position: absolute;
-            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.05));
-        }
-
-        .about-decoration.stool {
-            right: 100px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 200px;
-        }
-
-        .about-decoration.mic {
-            left: 50px;
-            bottom: 50px;
-            width: 100px;
-        }
-
-        .about h2 {
-            font-size: 46px;
-            font-weight: 400;
-            margin-bottom: 50px;
-            line-height: 1.5;
-            position: relative;
-            text-shadow: 2px 2px 0px rgba(107, 52, 16, 0.1);
-        }
-
-        .about h2 strong {
-            font-weight: 800;
-            color: #6B3410;
-        }
-
-        .about p {
-            font-size: 34px;
-            font-weight: 400;
-            line-height: 1.6;
-            max-width: 1000px;
-            margin: 0 auto 25px;
-            position: relative;
-        }
-
-        .about p strong {
-            font-weight: 800;
-            color: #6B3410;
-        }
-
-        /* Key Features Section */
-        .key-features {
-            padding: 120px 0;
-            background: linear-gradient(135deg, #FFD93D 0%, #FFC93D 100%);
-            position: relative;
-        }
-
-        .key-features::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, #E87449 0%, #FFD93D 50%, #E87449 100%);
-        }
-
-        .key-features h2 {
-            text-align: center;
-            font-size: 52px;
-            font-weight: 700;
-            margin-bottom: 80px;
-            position: relative;
-            color: #2a2a2a;
-            text-shadow: 2px 2px 0px rgba(232, 116, 73, 0.2);
-        }
-
-        .key-features h2::after {
-            content: '';
-            position: absolute;
-            bottom: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 5px;
-            background: #E87449;
-            border-radius: 3px;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 60px;
-            position: relative;
-        }
-
-        .feature-card {
-            text-align: center;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 20px;
-            transition: all 0.3s;
-            border: 3px solid transparent;
-        }
-
-        .feature-card:hover {
-            background: rgba(255, 255, 255, 0.8);
-            border-color: #E87449;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .feature-icon {
-            font-size: 90px;
-            margin-bottom: 25px;
-            display: block;
-            filter: drop-shadow(3px 3px 0px #6B3410);
-            transition: transform 0.3s;
-        }
-
-        .feature-card:hover .feature-icon {
-            transform: scale(1.1) rotate(-5deg);
-        }
-
-        .feature-card h3 {
-            font-size: 26px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: #2a2a2a;
-        }
-
-        .feature-card p {
-            font-size: 16px;
-            line-height: 1.7;
-            color: #444;
-        }
-
-        /* Features Section */
-        .features {
-            padding: 120px 0;
-            background: linear-gradient(to bottom, #f9f9f9 0%, #ffffff 100%);
-        }
-
-        .feature-row {
-            display: flex;
-            align-items: center;
-            gap: 80px;
-            margin-bottom: 120px;
-        }
-
-        .feature-row:nth-child(even) {
-            flex-direction: row-reverse;
-        }
-
-        .feature-text {
-            flex: 1;
-            background: white;
-            padding: 60px;
-            border-radius: 25px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-            border: 4px solid #2a2a2a;
-            position: relative;
-            transition: all 0.3s;
-        }
-
-        .feature-text:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 50px rgba(0,0,0,0.12);
-        }
-
-        .feature-text::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            right: -4px;
-            width: 30px;
-            height: 30px;
-            border-bottom: 4px solid #2a2a2a;
-            border-right: 4px solid #2a2a2a;
-            border-bottom-right-radius: 25px;
-        }
-
-        .feature-text h3 {
-            font-size: 38px;
-            font-weight: 700;
-            margin-bottom: 25px;
-            line-height: 1.2;
-            position: relative;
-            color: #2a2a2a;
-        }
-
-        .feature-text h3::after {
-            content: '';
-            position: absolute;
-            bottom: -12px;
-            left: 0;
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(90deg, #4A90E2 0%, #E87449 100%);
-            border-radius: 2px;
-        }
-
-        .feature-text p {
-            font-size: 18px;
-            line-height: 1.6;
-            color: #666;
-            margin-bottom: 15px;
-        }
-
-        .feature-text ul {
-            list-style: none;
-            margin-top: 20px;
-        }
-
-        .feature-text ul li {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 10px;
-            padding-left: 25px;
-            position: relative;
-        }
-
-        .feature-text ul li:before {
-            content: "•";
-            position: absolute;
-            left: 0;
-            font-size: 24px;
-            color: #E07A5F;
-        }
-
-        .feature-image {
-            flex: 1;
-            background: linear-gradient(135deg, #FFD93D 0%, #FFC93D 100%);
-            border-radius: 25px;
-            padding: 60px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 4px solid #2a2a2a;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            position: relative;
-            transition: all 0.3s;
-        }
-
-        .feature-image:hover {
-            transform: scale(1.02);
-        }
-
-        .feature-image::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            pointer-events: none;
-            border-radius: 21px;
-        }
-        .about-decoration.mic {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* чтобы изображение растянулось под фон */
-            z-index: -1; /* чтобы картинка была под текстом */
-        }
-        .phone-mockup {
-            max-width: 280px;
-            width: 100%;
-            border-radius: 45px;
-            border: 6px solid #2a2a2a;
-            background: white;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.2);
-            position: relative;
-            padding: 15px;
-            transition: transform 0.3s;
-        }
-
-        .phone-mockup:hover {
-            transform: translateY(-5px);
-        }
-
-        .phone-mockup::before {
-            content: '';
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 25px;
-            background: #2a2a2a;
-            border-radius: 20px;
-            z-index: 10;
-        }
-
-        .phone-screen {
-            background: linear-gradient(135deg, #f8f8f8 0%, #ffffff 100%);
-            border-radius: 35px;
-            padding: 50px 20px 40px;
-            min-height: 520px;
-            border: 2px solid #e0e0e0;
-        }
-
-        /* Reviews Section */
-        .reviews {
-            background: linear-gradient(135deg, #FFD93D 0%, #FFC93D 100%);
-            padding: 120px 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .reviews::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, #E87449 0%, #FFD93D 50%, #E87449 100%);
-        }
-
-        .reviews h2 {
-            text-align: center;
-            font-size: 52px;
-            font-weight: 700;
-            margin-bottom: 70px;
-            position: relative;
-            color: #2a2a2a;
-            text-shadow: 2px 2px 0px rgba(232, 116, 73, 0.2);
-        }
-
-        .reviews h2::after {
-            content: '';
-            position: absolute;
-            bottom: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 5px;
-            background: #E87449;
-            border-radius: 3px;
-        }
-
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
-            position: relative;
-        }
-
-        .review-card {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 40px;
-            border-radius: 20px;
-            position: relative;
-            border: 4px solid #2a2a2a;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s;
-        }
-
-        .review-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
-            background: rgba(255, 255, 255, 0.95);
-        }
-
-        .review-icon {
-            width: 65px;
-            height: 65px;
-            background: linear-gradient(135deg, #E87449 0%, #D86439 100%);
-            border-radius: 50%;
-            margin-bottom: 25px;
-            border: 4px solid #2a2a2a;
-            box-shadow: 0 4px 15px rgba(232, 116, 73, 0.3);
-        }
-
-        .review-text {
-            font-size: 17px;
-            line-height: 1.7;
-            margin-bottom: 25px;
-            color: #2a2a2a;
-            font-style: italic;
-        }
-
-        .review-author {
-            font-weight: 700;
-            margin-bottom: 5px;
-            font-size: 16px;
-            color: #2a2a2a;
-        }
-
-        .review-role {
-            font-size: 14px;
-            color: #666;
-            font-weight: 500;
-        }
-
-        /* Pricing Section */
-        .pricing {
-            background: linear-gradient(135deg, #FFD93D 0%, #FFC93D 100%);
-            padding: 120px 0;
-            position: relative;
-        }
-
-        .pricing::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, #E87449 0%, #FFD93D 50%, #E87449 100%);
-        }
-
-        .pricing h2 {
-            text-align: center;
-            font-size: 52px;
-            font-weight: 700;
-            margin-bottom: 70px;
-            position: relative;
-            color: #2a2a2a;
-            text-shadow: 2px 2px 0px rgba(232, 116, 73, 0.2);
-        }
-
-        .pricing h2::after {
-            content: '';
-            position: absolute;
-            bottom: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 5px;
-            background: #E87449;
-            border-radius: 3px;
-        }
-
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            position: relative;
-        }
-
-        .pricing-card {
-            background: white;
-            padding: 50px 30px;
-            border-radius: 20px;
-            text-align: center;
-            border: 3px solid #2a2a2a;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            transition: transform 0.3s;
-        }
-
-        .pricing-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .pricing-card h3 {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-
-        .price {
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 30px;
-            color: #E87449;
-        }
-
-        .price-features {
-            list-style: none;
-            margin-bottom: 30px;
-        }
-
-        .price-features li {
-            font-size: 16px;
-            margin-bottom: 15px;
-            color: #666;
-            position: relative;
-            padding-left: 25px;
-        }
-
-        .price-features li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #4A90E2;
-            font-weight: bold;
-        }
-
-        .price-button {
-            display: inline-block;
-            padding: 14px 40px;
-            background: #4A90E2;
-            color: white;
-            text-decoration: none;
-            border-radius: 25px;
-            font-weight: 500;
-            border: 2px solid #2a2a2a;
-            box-shadow: 0 3px 10px rgba(74, 144, 226, 0.3);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .price-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
-        }
-
-        /* Contact Section */
-        .contact {
-            background: #f9f9f9;
-            padding: 100px 0;
-            text-align: center;
-        }
-        /* Новый контейнер для контактов */
-        .contact-links-wrapper {
-            display: flex;
-            flex-direction: row; /* Располагаем в строку */
-            justify-content: center; /* Центрируем по горизонтали */
-            align-items: center; /* Выравниваем по центру по вертикали */
-            gap: 30px; /* Пробел между почтой и соцсетями */
-            flex-wrap: wrap; /* Позволяем переноситься на новую строку на маленьких экранах */
-        }
-
-        /* Ссылка на Email */
-        .contact-email {
-            display: flex;
-            align-items: center;
-            gap: 10px; /* Пробел между иконкой и текстом почты */
-            color: #666;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .contact-email:hover {
-            color: #E87449; /* Цвет при наведении */
-        }
-
-        .contact-email .fas {
-            font-size: 22px; /* Размер иконки почты */
-        }
-
-        /* --- НОВЫЕ СТИЛИ ДЛЯ СОЦСЕТЕЙ --- */
-        .contact-socials {
-            display: flex;
-            gap: 20px;
-        }
-
-        .social-button {
-            display: inline-flex;
-            align-items: center;
-            padding: 15px 25px;
-            border-radius: 12px;
-            text-decoration: none;
-            color: white;
-            font-weight: 600;
-            font-size: 20px; /* Увеличил размер шрифта */
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .social-button .fab {
-            font-size: 30px; /* Крупные иконки */
-            margin-right: 15px;
-        }
-
-        .social-button.facebook {
-            background-color: #1877F2;
-        }
-
-        .social-button.instagram {
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-        }
-
-        .social-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-        }
-        /* --- КОНЕЦ НОВЫХ СТИЛЕЙ ДЛЯ СОЦСЕТЕЙ --- */
-
-        .contact h2 {
-            font-size: 48px;
-            font-weight: 600;
-            margin-bottom: 40px;
-        }
-
-        .contact-info {
-            font-size: 18px;
-            color: #666;
-        }
-
-        /* Download Section */
-        .download-section {
-            /* Используем тот же фон, что и в .hero */
-            background: url("img/Image.png") center center / cover no-repeat;
-            padding: 100px 0;
-        }
-
-        .download-section h2 {
-            text-align: center;
-            font-size: 48px;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-
-        .download-section p {
-            text-align: center;
-            font-size: 24px;
-            color: #666;
-            margin-bottom: 60px;
-        }
-
-        .download-form {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group label {
-            font-size: 16px;
-            font-weight: 500;
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            padding: 18px 20px;
-            border: 2px solid #333;
-            border-radius: 8px;
-            font-size: 16px;
-            font-family: inherit;
-            background: white;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #E87449;
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 150px;
-        }
-
-        .form-group.full-width {
-            grid-column: 1 / -1;
-        }
-
-        .download-button {
-            display: block;
-            margin: 40px auto 0;
-            padding: 18px 60px;
-            background: #E87449;
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-size: 20px;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 15px rgba(232, 116, 73, 0.3);
-        }
-
-        .download-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(232, 116, 73, 0.4);
-        }
-
-        /* Footer */
-        footer {
-            background: #2a2a2a;
-            color: white;
-            padding: 60px 0 30px;
-            text-align: center;
-        }
-
-        .footer-content {
-            margin-bottom: 30px;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            list-style: none;
-            margin-bottom: 30px;
-        }
-
-        .footer-links a {
-            color: #999;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: #FFD93D;
-        }
-
-        .footer-bottom {
-            color: #666;
-            font-size: 14px;
-        }
-
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 32px;
-            }
-
-            .feature-row {
-                flex-direction: column !important;
-            }
-
-            .reviews-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .pricing-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-left,
-            .nav-right {
-                gap: 20px;
-                font-size: 14px;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Jokely — Coming Soon</title>
+  <meta name="description" content="Jokely — write jokes, record sets and improve stage performance. Join the waitlist and we'll notify you when we launch!" />
+  <meta name="theme-color" content="#FFF8EE" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #FFF9F2;
+      --cream: #FFF2D9;
+      --card: #FFFDFB;
+      --muted: #6e5a49;
+      --accent-1: #FFB566; /* warm orange */
+      --accent-2: #FFE7A6; /* pale yellow */
+      --accent-3: #FFDDE1; /* soft pink */
+      --shadow: 0 18px 50px rgba(30,30,30,0.06);
+      --radius: 18px;
+      --container: 1200px;
+    }
+
+    /* Reset */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Quicksand", Arial;
+      background: var(--bg);
+      color: #2b2b2b;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      padding-top:80px; /* space for fixed header */
+    }
+
+    img{max-width:100%;height:auto;display:block}
+    a{color:inherit;text-decoration:none}
+
+    .container{max-width:var(--container);margin:0 auto;padding:0 20px}
+
+    /* subtle paper grain using SVG data URI */
+    body::before{
+      content:"";
+      position:fixed;inset:0;
+      pointer-events:none;
+      background-image:
+        radial-gradient(rgba(255,255,255,0.35) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+      background-size: 8px 8px, 100% 100%;
+      mix-blend-mode: overlay;
+      opacity:0.5;
+    }
+
+    /* Header */
+    header{
+      position:fixed;left:0;right:0;top:0;z-index:1000;
+      background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.92));
+      border-bottom:1px solid rgba(0,0,0,0.04);
+      backdrop-filter: blur(6px);
+    }
+
+    nav.container{
+      display:flex;align-items:center;justify-content:space-between;padding:14px 0;
+      gap:10px;
+    }
+
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand .logo{
+      width:48px;height:48px;border-radius:12px;overflow:hidden;border:3px solid rgba(0,0,0,0.03);
+      background: var(--accent-2); display:flex;align-items:center;justify-content:center;
+      box-shadow: 0 8px 20px rgba(30,30,30,0.06);
+    }
+    .brand img{width:100%;height:100%;object-fit:cover}
+    .brand h1{font-size:18px;font-weight:700;color:#2b2b2b}
+
+    .nav-links{display:flex;gap:18px;align-items:center}
+    .nav-links a{padding:8px 12px;border-radius:10px;font-weight:600;font-size:15px;color:var(--muted)}
+    .nav-links a:hover{background:rgba(255,181,102,0.12);color:#2b2b2b}
+
+    .cta-small{background:linear-gradient(135deg,var(--accent-1),#ff9e3b);padding:10px 14px;border-radius:10px;color:white;font-weight:700;box-shadow:0 8px 24px rgba(255,158,59,0.18)}
+
+    /* hamburger */
+    .menu-toggle{display:none;background:transparent;border:0;padding:8px;border-radius:8px}
+
+    /* Hero */
+    .hero{
+      margin:28px auto;border-radius:calc(var(--radius) + 6px);
+      background: linear-gradient(180deg,var(--card),#fffbf7);
+      box-shadow:var(--shadow);padding: clamp(28px,5vw,64px);
+      display:grid;grid-template-columns: 1fr 480px;gap:28px;align-items:center;
+      border:1px solid rgba(0,0,0,0.03);
+      overflow:visible;
+    }
+
+    .hero-left .eyebrow{display:inline-block;padding:6px 12px;border-radius:999px;background:linear-gradient(90deg,var(--accent-2),#fff4d9);font-weight:700;color:#6b452b;margin-bottom:12px;box-shadow:0 6px 18px rgba(0,0,0,0.04)}
+    .hero h2{font-size:clamp(1.6rem,4vw,2.6rem);line-height:1.05;margin-bottom:14px;color:#2b2b2b;font-weight:700}
+    .hero p{color:var(--muted);margin-bottom:20px;font-size:1rem}
+
+    .cta-row{display:flex;gap:12px;flex-wrap:wrap}
+    .btn-primary{
+      background:linear-gradient(135deg,var(--accent-1),#ff9e3b);color:white;padding:14px 18px;border-radius:12px;font-weight:800;border:0;box-shadow:0 12px 32px rgba(255,158,59,0.12)
+    }
+    .btn-ghost{background:transparent;padding:12px 16px;border-radius:12px;border:1px solid rgba(0,0,0,0.04);font-weight:700}
+
+    /* hero right - illustration */
+    .hero-art{
+      position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+    }
+    .hero-art .frame{
+      width:420px;max-width:100%;border-radius:22px;overflow:hidden;border:6px solid rgba(0,0,0,0.04);
+      background:linear-gradient(180deg,#fff,#fff6ea);box-shadow:0 22px 60px rgba(30,30,30,0.06);
+    }
+    .hero-art img{display:block;width:100%;height:100%;object-fit:cover}
+
+    /* Sections */
+    section{padding:72px 0}
+    .section-title{font-family:'Quicksand', 'Poppins', sans-serif;font-weight:600;font-size:clamp(1.25rem,2.8vw,1.8rem);margin-bottom:12px}
+    .muted{color:var(--muted)}
+
+    /* features grid */
+    .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{
+      background:linear-gradient(180deg,#fff,#fffdf9);border-radius:14px;padding:20px;border:1px solid rgba(0,0,0,0.03);
+      box-shadow: 0 8px 30px rgba(30,30,30,0.04);
+    }
+    .feature-emoji{font-size:34px;margin-bottom:10px;display:inline-block}
+
+    /* feature rows */
+    .feature-row{display:flex;gap:24px;align-items:center}
+    .feature-row:nth-child(even){flex-direction:row-reverse}
+    .feature-text{flex:1}
+    .feature-image{flex:1;display:flex;justify-content:center;align-items:center}
+
+    /* reviews */
+    .reviews-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    .quote{font-style:italic;color:var(--muted);margin-bottom:10px}
+
+    /* pricing */
+    .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .pricing-card{text-align:center;padding:20px;border-radius:14px;background:linear-gradient(180deg,#fff,#fff);border:1px solid rgba(0,0,0,0.03);box-shadow:0 8px 30px rgba(30,30,30,0.03)}
+
+    /* Notify (waitlist) */
+    .notify{
+      display:flex;gap:18px;align-items:center;padding:24px;border-radius:16px;background:linear-gradient(180deg,var(--accent-3),var(--accent-2));
+      border:1px solid rgba(0,0,0,0.03);
+    }
+    .notify-left{flex:1}
+    .notify-right{flex:0 0 280px;display:flex;justify-content:center}
+    .notify-form{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .notify-form input[type="email"]{
+      padding:12px 14px;border-radius:999px;border:1px solid rgba(0,0,0,0.06);min-width:260px;font-weight:600;background:white;
+    }
+    .notify-form button{padding:12px 16px;border-radius:999px;border:0;background:linear-gradient(135deg,var(--accent-1),#ff9e3b);color:white;font-weight:800;cursor:pointer}
+    .notify .success{display:none;margin-top:10px;font-weight:700;color:#17412f}
+
+    /* footer */
+    footer{padding:36px 0;color:var(--muted);border-top:1px dashed rgba(0,0,0,0.03)}
+    .footer-links{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:10px}
+
+    /* Utilities */
+    .center{text-align:center}
+    .small{font-size:0.9rem;color:var(--muted)}
+
+    /* Responsive */
+    @media (max-width:1100px){
+      .hero{grid-template-columns:1fr 380px}
+      .features-grid{grid-template-columns:repeat(2,1fr)}
+      .pricing-grid{grid-template-columns:repeat(2,1fr)}
+    }
+
+    @media (max-width:768px){
+      .menu-toggle{display:inline-flex}
+      .nav-links{display:none;position:fixed;left:12px;right:12px;top:72px;background:var(--card);padding:12px;border-radius:12px;box-shadow:0 12px 36px rgba(30,30,30,0.08);flex-direction:column;gap:10px}
+      nav.open .nav-links{display:flex}
+      .hero{grid-template-columns:1fr;padding:22px}
+      .hero-art .frame{width:320px}
+      .features-grid{grid-template-columns:1fr}
+      .reviews-grid{grid-template-columns:1fr}
+      .pricing-grid{grid-template-columns:1fr}
+      .feature-row{flex-direction:column !important}
+      .notify{flex-direction:column;text-align:center}
+      .notify-right{order:2;margin-top:12px}
+    }
+
+    @media (prefers-reduced-motion:reduce){
+      *{transition:none!important;animation:none!important}
+    }
+
+  </style>
 </head>
 <body>
-    <header>
-            <nav>
-            <ul class="nav-left">
-                <li><a href="#about">About</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="ClosedBlog.html">Blog</a></li>
-            </ul>
-            <div class="logo">
-               <img class="about-decoration mic" src="img/iconJokely.png" alt="iconJokely.png">
-            </div>
-            <ul class="nav-right">
-                <li><a href="#contacts">Contacts</a></li>
-                <li><a href="#reviews">Reviews</a></li>
-                <li><a href="#store">Store</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <main>
-        <section class="hero">
-            <div class="container">
-                <h1>Jokely - The best app for stand-up comedy</h1>
-                <p>Work with humor</p>
-                <a href="#" class="cta-button">Get Jokely free</a>
-              <img class="about-decoration mic" src="img/hand.png" alt="Hand.png">
-            </div>
-        </section>
-
-        <section id="about" class="about">
-            <div class="container">
-                <h2><strong>Jokely</strong> simplifies joke writing and strengthens stage performance</h2>
-                <p>Unlock your comedic potential with <strong>Jokely</strong>!</p>
-            </div>
-        </section>
-
-        <section id="features" class="features">
-            <div class="container">
-                <div class="feature-row">
-                    <div class="feature-text">
-                        <h3>Write Your Way to Comedy</h3>
-                        <p>With the Best Tool for Writing, Editing, and Performing Stand-Up Comedy</p>
-                    </div>
-                    <div class="feature-image">
-                        <div class="phone-mockup">
-                            <div class="phone-screen"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="feature-row">
-                    <div class="feature-text">
-                        <h3>Next-level joke editor</h3>
-                        <p>Store all of your jokes in one place:</p>
-                        <ul>
-                            <li>Edit your jokes</li>
-                            <li>Use tags</li>
-                            <li>Add jokes to set</li>
-                            <li>AI joke editor</li>
-                        </ul>
-                    </div>
-                    <div class="feature-image">
-                        <div class="phone-mockup">
-                            <div class="phone-screen"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="feature-row">
-                    <div class="feature-text">
-                        <h3>Record Your Performance</h3>
-                        <p>Capture your sets and review your delivery to continuously improve your comedy craft.</p>
-                    </div>
-                    <div class="feature-image">
-                        <div class="phone-mockup">
-                            <div class="phone-screen"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="key-features">
-            <div class="container">
-                <h2>Key Features</h2>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <span class="feature-icon">✍️</span>
-                        <h3>Joke Editor</h3>
-                        <p>The most convenient joke editor on the market</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="feature-icon">🎤</span>
-                        <h3>Performance mode</h3>
-                        <p>Have the Set-List in front of you and we'll take care of the time tracking and recording</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="feature-icon">🎭</span>
-                        <h3>Shows</h3>
-                        <p>Create, manage and review shows</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="feature-icon">🎙️</span>
-                        <h3>Voice Transcription</h3>
-                        <p>Catch inspiration anywhere, anytime</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="feature-icon">📊</span>
-                        <h3>Analytics</h3>
-                        <p>Colorful Dashboards will ensure your daily improvement and rapid professional growth.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="feature-icon">🔄</span>
-                        <h3>Synchronization</h3>
-                        <p>Cross-Platform sync</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="features" class="features">
-            <div class="container">
-                <div class="feature-row">
-                    <div class="feature-text">
-                        <h3>Write Your Way to Comedy</h3>
-                        <p>With the Best Tool for Writing, Editing, and Performing Stand-Up Comedy</p>
-                    </div>
-                    <div class="feature-image">
-                        <div class="phone-mockup">
-                            <div class="phone-screen"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="feature-row">
-                    <div class="feature-text">
-                        <h3>Next-level joke editor</h3>
-                        <p>Store all of your jokes in one place:</p>
-                        <ul>
-                            <li>Edit your jokes</li>
-                            <li>Use tags</li>
-                            <li>Add jokes to set</li>
-                            <li>AI joke editor</li>
-                        </ul>
-                    </div>
-                    <div class="feature-image">
-                        <div class="phone-mockup">
-                            <div class="phone-screen"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="feature-row">
-                    <div class="feature-text">
-                        <h3>Record Your Performance</h3>
-                        <p>Capture your sets and review your delivery to continuously improve your comedy craft.</p>
-                    </div>
-                    <div class="feature-image">
-                        <div class="phone-mockup">
-                            <div class="phone-screen"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="reviews" class="reviews">
-            <div class="container">
-                <h2>User reviews</h2>
-                <div class="reviews-grid">
-                    <div class="review-card">
-                        <div class="review-icon"></div>
-                        <p class="review-text">I didn't think I had a funny bone for writing, but Jokely proved me wrong. The character tools are weirdly fun, and it's great for sparking ridiculous ideas. Kind of feels like having a goofy writing buddy in my pocket</p>
-                        <div class="review-author">Ivan Grimsby</div>
-                        <div class="review-role">College Student & Humor Blogger</div>
-                    </div>
-                    <div class="review-card">
-                        <div class="review-icon"></div>
-                        <p class="review-text">As someone trying to make people laugh professionally, Jokely has been surprisingly helpful. The recording feature lets me catch mistakes before hitting the stage, and the organization tools keep my chaos somewhat manageable</p>
-                        <div class="review-author">Marcus Chen</div>
-                        <div class="review-role">Stand-Up Comedian</div>
-                    </div>
-                    <div class="review-card">
-                        <div class="review-icon"></div>
-                        <p class="review-text">Jokely makes writing comedy less intimidating. I love that I can jot down ideas whenever they hit me, and the app helps me turn those random thoughts into actual material</p>
-                        <div class="review-author">Sarah Mitchell</div>
-                        <div class="review-role">Open Mic Regular</div>
-                    </div>
-                    <div class="review-card">
-                        <div class="review-icon"></div>
-                        <p class="review-text">The best part about Jokely is how it helps me track which jokes actually work. I can see patterns in what makes people laugh and what falls flat. It's like having a comedy notebook that thinks</p>
-                        <div class="review-author">Alex Rodriguez</div>
-                        <div class="review-role">Comedy Writer</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="pricing">
-            <div class="container">
-                <h2 id="store">Choose your Plan</h2>
-                <div class="pricing-grid">
-                    <div class="pricing-card">
-                        <h3>Basic</h3>
-                        <div class="price">FREE</div>
-                        <ul class="price-features">
-                            <li>Unlimited jokes</li>
-                            <li>Basic editor</li>
-                            <li>Cloud sync</li>
-                            <li>Mobile app</li>
-                        </ul>
-                        <a href="#" class="price-button">Get Started</a>
-                    </div>
-                    <div class="pricing-card">
-                        <h3>Pro</h3>
-                        <div class="price">9.99 USD</div>
-                        <ul class="price-features">
-                            <li>Everything in Basic</li>
-                            <li>Recording feature</li>
-                            <li>AI joke suggestions</li>
-                            <li>Advanced analytics</li>
-                            <li>Priority support</li>
-                        </ul>
-                        <a href="#" class="price-button">Upgrade Now</a>
-                    </div>
-                    <div class="pricing-card">
-                        <h3>Premium</h3>
-                        <div class="price">79.99 USD</div>
-                        <ul class="price-features">
-                            <li>Everything in Pro</li>
-                            <li>Lifetime access</li>
-                            <li>All future updates</li>
-                            <li>Exclusive features</li>
-                            <li>VIP support</li>
-                        </ul>
-                        <a href="#" class="price-button">Buy Lifetime</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="download-section">
-            <div class="container">
-                <h2>Download the app and get started</h2>
-                <p>Take up comedy professionally!</p>
-                <form class="download-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="name">Your name</label>
-                            <input type="text" id="name" name="name" placeholder="What's your name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Your email</label>
-                            <input type="email" id="email" name="email" placeholder="What's your email" required>
-                        </div>
-                    </div>
-                    <div class="form-group full-width">
-                        <textarea name="message" placeholder="What do you want to tell?" rows="5"></textarea>
-                    </div>
-                    <button type="submit" class="download-button">Download now</button>
-                </form>
-            </div>
-        </section>
-
-      <section id="contacts" class="contact">
-        <div class="container">
-            <h2>Contact us</h2>
-
-            <div class="contact-links-wrapper">
-
-                <a href="mailto:Jokely.co@gmail.com" class="contact-email">
-                    <i class="fas fa-envelope"></i> <span>Jokely.co@gmail.com</span>
-                </a>
-
-                <div class="contact-socials">
-                    <a href="https://www.facebook.com/share/1TBTCm83Fs/?mibextid=wwXIfr" target="_blank" class="social-button facebook" aria-label="Facebook">
-                        <i class="fab fa-facebook-f"></i>
-                        Facebook
-                    </a>
-                    <a href="https://www.instagram.com/jokelystandup/" target="_blank" class="social-button instagram" aria-label="Instagram">
-                        <i class="fab fa-instagram"></i>
-                        Instagram
-                    </a>
-                </div>
-            </div>
+  <header aria-hidden="false">
+    <nav class="container" role="navigation" aria-label="Main">
+      <div class="brand" aria-hidden="false">
+        <div class="logo" aria-hidden="true">
+          <img src="img/iconJokely.png" alt="Jokely mascot" loading="lazy">
         </div>
+        <h1>Jokely</h1>
+      </div>
+
+      <button class="menu-toggle" aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="#2b2b2b" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+
+      <div id="primary-nav" class="nav-links" role="menubar" aria-label="Primary">
+        <a role="menuitem" href="#about">About</a>
+        <a role="menuitem" href="#features">Features</a>
+        <a role="menuitem" href="#key-features">Key Features</a>
+        <a role="menuitem" href="#reviews">Reviews</a>
+        <a role="menuitem" href="#store">Plans</a>
+        <a role="menuitem" href="#notify" class="cta-small">Join Waitlist</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero container" aria-labelledby="hero-title" data-aos="fade-up">
+      <div class="hero-left">
+        <div class="eyebrow">Soft Launch</div>
+        <h2 id="hero-title">Jokely — craft jokes, rehearse sets, and shine on stage</h2>
+        <p class="muted">A cozy, friendly app to capture ideas, rehearse with recordings, and track what truly makes audiences laugh.</p>
+
+        <div class="cta-row" role="group" aria-label="Hero calls">
+          <a class="btn-primary" href="#notify">Join the Waitlist</a>
+          <a class="btn-ghost" href="#key-features">Explore Features</a>
+        </div>
+
+        <p class="small" style="margin-top:12px">We won't spam — just one email when we launch.</p>
+      </div>
+
+      <div class="hero-art" aria-hidden="true" data-aos="zoom-in">
+        <div class="frame">
+          <!-- use provided stage illustration -->
+          <img src="img/Hand.png" alt="Illustration: stage and microphone" loading="lazy">
+        </div>
+      </div>
     </section>
-    </main>
 
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <ul class="footer-links">
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Support</a></li>
-                    <li><a href="https://www.facebook.com/share/1TBTCm83Fs/?mibextid=wwXIfr" target="_blank">Facebook</a></li>
-                    <li><a href="https://www.instagram.com/jokelystandup/" target="_blank">Instagram</a></li>
-                </ul>
-            </div>
-            <div class="footer-bottom">
-                <p>© 2025 Jokely. All rights reserved.</p>
-            </div>
+    <!-- ABOUT -->
+    <section id="about" class="container" data-aos="fade-up">
+      <div class="center">
+        <h2 class="section-title">About Jokely</h2>
+        <p class="muted">Jokely helps performers and hobbyists turn sparks into jokes, practice with confidence, and measure what actually lands — all with a warm, illustrated experience.</p>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features" class="container" data-aos="fade-up">
+      <div class="feature-row" style="margin-bottom:30px">
+        <div class="feature-text">
+          <h3 class="section-title">Write & organize</h3>
+          <p class="muted">A quick, distraction-free editor with tags and set lists so ideas are always ready for stage.</p>
         </div>
-    </footer>
+        <div class="feature-image">
+          <div class="card" style="max-width:320px">
+            <div style="font-size:28px;margin-bottom:10px">✍️</div>
+            <div style="font-weight:700;margin-bottom:6px">Joke Editor</div>
+            <div class="muted">Draft, tag and prepare sets on the go.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-row" style="margin-bottom:30px">
+        <div class="feature-text">
+          <h3 class="section-title">Record & review</h3>
+          <p class="muted">Record rehearsals, automatically transcribe and spot timing or delivery issues quickly.</p>
+        </div>
+        <div class="feature-image">
+          <div class="card" style="max-width:320px">
+            <div style="font-size:28px;margin-bottom:10px">🎙️</div>
+            <div style="font-weight:700;margin-bottom:6px">Performance Mode</div>
+            <div class="muted">Hands-free view for live shows and rehearsals.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KEY FEATURES GRID -->
+    <section id="key-features" class="container" data-aos="fade-up">
+      <h2 class="section-title center">Key Features</h2>
+      <div class="features-grid" style="margin-top:18px">
+        <div class="card" data-aos="fade-up"><div class="feature-emoji">✍️</div><div style="font-weight:700">Editor</div><div class="muted">Fast notes, tags, version history.</div></div>
+        <div class="card" data-aos="fade-up" data-aos-delay="40"><div class="feature-emoji">🎤</div><div style="font-weight:700">Performance Mode</div><div class="muted">Set-list and timer for live shows.</div></div>
+        <div class="card" data-aos="fade-up" data-aos-delay="80"><div class="feature-emoji">🎙️</div><div style="font-weight:700">Transcription</div><div class="muted">Turn recordings into text.</div></div>
+        <div class="card" data-aos="fade-up" data-aos-delay="120"><div class="feature-emoji">📊</div><div style="font-weight:700">Analytics</div><div class="muted">Track laugh-metrics over time.</div></div>
+        <div class="card" data-aos="fade-up" data-aos-delay="160"><div class="feature-emoji">🔁</div><div style="font-weight:700">Sync</div><div class="muted">Cross-device sync.</div></div>
+        <div class="card" data-aos="fade-up" data-aos-delay="200"><div class="feature-emoji">🧠</div><div style="font-weight:700">Smart Tools</div><div class="muted">Optional AI helpers for drafts.</div></div>
+      </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section id="reviews" class="container" data-aos="fade-up">
+      <h2 class="section-title center">Early feedback</h2>
+      <div class="reviews-grid" style="margin-top:16px">
+        <div class="card"><div class="quote">"A perfect little writing companion for open mic nights — intuitive and warm."</div><div style="font-weight:700">Ivan G.</div><div class="small">Open mic regular</div></div>
+        <div class="card"><div class="quote">"Recording + transcription saved me time — and helped me tweak delivery."</div><div style="font-weight:700">Sarah M.</div><div class="small">Comedy writer</div></div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="store" class="container" data-aos="fade-up">
+      <h2 class="section-title center">Plans</h2>
+      <div class="pricing-grid" style="margin-top:18px">
+        <div class="pricing-card"><h4>Basic</h4><div style="font-weight:800;font-size:20px;margin:8px 0">Free</div><div class="muted">Essentials to get started</div></div>
+        <div class="pricing-card"><h4>Pro</h4><div style="font-weight:800;font-size:20px;margin:8px 0">€9.99 / month</div><div class="muted">Advanced recording & analytics</div></div>
+        <div class="pricing-card"><h4>Premium</h4><div style="font-weight:800;font-size:20px;margin:8px 0">€79.99 / year</div><div class="muted">Everything + extras</div></div>
+      </div>
+    </section>
+
+    <!-- NOTIFY / WAITLIST -->
+    <section id="notify" class="container" data-aos="fade-up">
+      <div class="notify" role="region" aria-labelledby="notify-title">
+        <div class="notify-left">
+          <h3 id="notify-title" class="section-title">Be first in line</h3>
+          <p class="muted">Drop your email and we'll let you know the second Jokely is available — friendly, personal, no spam.</p>
+
+          <!-- Formspree -->
+          <form id="notify-form" class="notify-form" action="https://formspree.io/f/xvgvwdjv" method="POST" novalidate>
+            <input aria-label="Email address" type="email" name="email" placeholder="your@email.com" required>
+            <button type="submit">Notify me</button>
+            <!-- Optional Formspree fields:
+                 <input type="hidden" name="_subject" value="New waitlist signup">
+                 <input type="hidden" name="_next" value="https://yoursite.com/thanks.html">
+            -->
+          </form>
+
+          <p class="success" id="notify-success" role="status">Thanks — you’re on the list! 🎉</p>
+        </div>
+
+        <div class="notify-right" aria-hidden="true">
+          <img src="img/WritingFox.png" alt="Jokely mascot" loading="lazy" style="width:180px;border-radius:14px;border:4px solid rgba(0,0,0,0.03);background:var(--accent-2)">
+        </div>
+      </div>
+
+      <noscript>
+        <p class="small center" style="margin-top:12px">If JavaScript is disabled, please email <a href="mailto:Jokely.co@gmail.com">Jokely.co@gmail.com</a> to join the waitlist.</p>
+      </noscript>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contacts" class="container" data-aos="fade-up">
+      <div class="center">
+        <h2 class="section-title">Contact</h2>
+        <p class="muted">For press, partnerships or feedback — jokely.co@gmail.com</p>
+        <div style="margin-top:12px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          <a class="btn-ghost" href="mailto:Jokely.co@gmail.com">Email</a>
+          <a class="btn-ghost" href="https://www.instagram.com/jokelystandup/" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="container" role="contentinfo">
+    <div class="footer-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Support</a>
+    </div>
+    <p class="small center">© 2025 Jokely — All rights reserved</p>
+  </footer>
+
+  <!-- AOS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+
+  <!-- Small inline JS: menu toggle + form handling (submits to Formspree) -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      if(window.AOS) AOS.init({ duration:700, once:true, easing:'ease-out-cubic' });
+
+      // menu toggle
+      const nav = document.querySelector('nav.container');
+      const toggle = document.querySelector('.menu-toggle');
+      toggle.addEventListener('click', function(e){
+        const expanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', String(!expanded));
+        nav.classList.toggle('open');
+      });
+
+      // notify form using fetch to show inline success
+      const form = document.getElementById('notify-form');
+      const success = document.getElementById('notify-success');
+      form.addEventListener('submit', async function(e){
+        e.preventDefault();
+        const data = new FormData(form);
+        try {
+          const res = await fetch(form.action, {
+            method: 'POST',
+            headers: { 'Accept': 'application/json' },
+            body: data
+          });
+          if (res.ok) {
+            form.style.display = 'none';
+            success.style.display = 'block';
+          } else {
+            const json = await res.json();
+            alert((json && json.error) ? json.error : 'Submission failed — please try again.');
+          }
+        } catch(err) {
+          console.error(err);
+          alert('Network error — please try again.');
+        }
+      });
+    });
+  </script>
 </body>
 </html>
