@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Jokely — Coming Soon</title>
-  <meta name="description" content="Jokely — write jokes, record sets and improve stage performance. Join the waitlist and we'll notify you when we launch!" />
+  <meta name="description" content="Jokely — write jokes, record your shows and improve stage performance. Join the waitlist and we'll notify you when we launch!" />
   <meta name="theme-color" content="#FFF8EE" />
 
   <!-- Google Fonts -->
@@ -26,6 +26,16 @@
       --radius: 18px;
       --container: 1200px;
     }
+
+.mascot-img {
+  width: 180px;       /* максимальная ширина на больших экранах */
+  max-width: 100%;    /* не будет выходить за пределы контейнера на мобильных */
+  height: auto;       /* сохраняем пропорции */
+  border-radius: 14px;
+  border: 4px solid rgba(0,0,0,0.03);
+
+  display: block;
+}
 
     /* Reset */
     *{box-sizing:border-box;margin:0;padding:0}
@@ -73,9 +83,9 @@
 
     .brand{display:flex;align-items:center;gap:12px}
     .brand .logo{
-      width:48px;height:48px;border-radius:12px;overflow:hidden;border:3px solid rgba(0,0,0,0.03);
-      background: var(--accent-2); display:flex;align-items:center;justify-content:center;
-      box-shadow: 0 8px 20px rgba(30,30,30,0.06);
+      width:64px;height:64px;
+
+
     }
     .brand img{width:100%;height:100%;object-fit:cover}
     .brand h1{font-size:18px;font-weight:700;color:#2b2b2b}
@@ -213,9 +223,8 @@
       <div id="primary-nav" class="nav-links" role="menubar" aria-label="Primary">
         <a role="menuitem" href="#about">About</a>
         <a role="menuitem" href="#features">Features</a>
-        <a role="menuitem" href="#key-features">Key Features</a>
+        <a role="menuitem" href="ClosedBlog.html">Blog</a>
         <a role="menuitem" href="#reviews">Reviews</a>
-        <a role="menuitem" href="#store">Plans</a>
         <a role="menuitem" href="#notify" class="cta-small">Join Waitlist</a>
       </div>
     </nav>
@@ -226,7 +235,7 @@
     <section class="hero container" aria-labelledby="hero-title" data-aos="fade-up">
       <div class="hero-left">
         <div class="eyebrow">Soft Launch</div>
-        <h2 id="hero-title">Jokely — craft jokes, rehearse sets, and shine on stage</h2>
+        <h2 id="hero-title">Jokely — write jokes and perform stand-up comedy</h2>
         <p class="muted">A cozy, friendly app to capture ideas, rehearse with recordings, and track what truly makes audiences laugh.</p>
 
         <div class="cta-row" role="group" aria-label="Hero calls">
@@ -300,21 +309,14 @@
     <!-- REVIEWS -->
     <section id="reviews" class="container" data-aos="fade-up">
       <h2 class="section-title center">Early feedback</h2>
-      <div class="reviews-grid" style="margin-top:16px">
+      <div class="reviews-grid" style="margin-bottom:16px">
         <div class="card"><div class="quote">"A perfect little writing companion for open mic nights — intuitive and warm."</div><div style="font-weight:700">Ivan G.</div><div class="small">Open mic regular</div></div>
         <div class="card"><div class="quote">"Recording + transcription saved me time — and helped me tweak delivery."</div><div style="font-weight:700">Sarah M.</div><div class="small">Comedy writer</div></div>
       </div>
     </section>
 
     <!-- PRICING -->
-    <section id="store" class="container" data-aos="fade-up">
-      <h2 class="section-title center">Plans</h2>
-      <div class="pricing-grid" style="margin-top:18px">
-        <div class="pricing-card"><h4>Basic</h4><div style="font-weight:800;font-size:20px;margin:8px 0">Free</div><div class="muted">Essentials to get started</div></div>
-        <div class="pricing-card"><h4>Pro</h4><div style="font-weight:800;font-size:20px;margin:8px 0">€9.99 / month</div><div class="muted">Advanced recording & analytics</div></div>
-        <div class="pricing-card"><h4>Premium</h4><div style="font-weight:800;font-size:20px;margin:8px 0">€79.99 / year</div><div class="muted">Everything + extras</div></div>
-      </div>
-    </section>
+
 
     <!-- NOTIFY / WAITLIST -->
     <section id="notify" class="container" data-aos="fade-up">
@@ -337,7 +339,7 @@
         </div>
 
         <div class="notify-right" aria-hidden="true">
-          <img src="img/WritingFox.png" alt="Jokely mascot" loading="lazy" style="width:180px;border-radius:14px;border:4px solid rgba(0,0,0,0.03);background:var(--accent-2)">
+          <img src="img/WritingFox.png" alt="Jokely mascot" loading="lazy" style="border-radius:14px;border:4px solid rgba(0,0,0,0.03);background:var(--accent-2)">
         </div>
       </div>
 
