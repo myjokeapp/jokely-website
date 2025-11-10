@@ -1,0 +1,736 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Jokely Stand-Up School — Learn Fast, Land Hard</title>
+  <meta name="description" content="Jokely Stand-Up School: Our Stand-Up School of Insights, stage analysis, and joke mechanics taught by a wry Jokely. Learn easy — intuitive, playful, addictive.">
+  <meta name="theme-color" content="#FFEDDB">
+
+  <style>
+    :root{
+      --bg:#fffdf9;
+      --accent:#E87449;
+      --accent-2:#FFD93D;
+      --ink:#111216;
+      --muted:#6d6d6d;
+      --card:#ffffff;
+      --glass: rgba(255,255,255,0.6);
+      --radius:18px;
+      --max:1200px;
+      --shadow: 0 10px 30px rgba(16,24,40,0.06);
+      --glass-border: 1px solid rgba(255,255,255,0.6);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial;
+      background:linear-gradient(180deg,var(--bg) 0%, #FFF6EE 100%);
+      color:var(--ink);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.55;
+      padding-bottom:80px;
+      padding-left:env(safe-area-inset-left);
+      padding-right:env(safe-area-inset-right);
+    }
+
+    .wrap{max-width:var(--max);margin:32px auto;padding:0 24px}
+
+    header{position:sticky;top:14px;z-index:60;background:transparent;padding:6px 0}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{display:flex;align-items:center;gap:14px;cursor:pointer}
+    .logo{
+      width:64px;height:64px;border-radius:14px;display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--accent-2),#FFD36A);box-shadow:var(--shadow);padding:6px
+    }
+    .logo svg{width:46px;height:46px}
+    .site-title{font-weight:800;font-size:18px}
+    .site-sub{font-size:12px;color:var(--muted);margin-top:-4px}
+
+    nav ul{display:flex;gap:18px;align-items:center;list-style:none;margin:0;padding:0}
+    nav a{color:var(--ink);text-decoration:none;font-weight:600;padding:8px 12px;border-radius:10px}
+    nav a:hover{color:var(--accent)}
+
+    .hero{display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:center;margin:18px 0;padding:36px;border-radius:24px;background:linear-gradient(180deg, rgba(91,141,196,0.08), rgba(232,116,73,0.03));box-shadow:var(--shadow);overflow:hidden}
+    .hero-left{padding-right:6px}
+    .eyebrow{display:inline-block;padding:6px 12px;border-radius:999px;background:#fff;font-weight:700;color:var(--accent);border:2px solid rgba(232,116,73,0.08);font-size:13px}
+    .headline{font-size:34px;margin:12px 0 8px;font-weight:800;line-height:1.08}
+    .subhead{color:var(--muted);font-size:16px;margin-bottom:18px}
+    .cta-row{display:flex;gap:12px;align-items:center}
+    .cta{background:var(--accent);color:white;padding:12px 18px;border-radius:999px;font-weight:800;text-decoration:none;border:3px solid var(--accent);box-shadow:0 10px 30px rgba(232,116,73,0.18)}
+    .cta.secondary{background:transparent;border:2px solid rgba(42,42,42,0.06);color:var(--ink);font-weight:700}
+
+    .hero-right{display:flex;align-items:center;justify-content:center}
+    .fox-wrap{width:320px;height:320px;border-radius:20px;background:linear-gradient(180deg,#ffffff55,#ffffff22);display:grid;place-items:center;padding:18px;border:1px solid rgba(255,255,255,0.5);box-shadow:0 20px 50px rgba(16,24,40,0.07)}
+    .fox{width:100%;height:auto;transform-origin:center;animation:float 5s ease-in-out infinite}
+    @keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-10px)}100%{transform:translateY(0)}}
+
+    .logo {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:64px;
+      height:64px;
+    }
+
+    .logo-img {
+      width:200%;
+      height:200%;
+      object-fit:contain;
+      border-radius:12px;
+    }
+
+    .content{display:grid;grid-template-columns:260px 1fr;gap:32px;margin-top:28px}
+    .sidebar{position:sticky;top:110px;height:fit-content;padding:18px;border-radius:14px;background:#fff;box-shadow:var(--shadow)}
+    .sidebar h4{margin:0 0 12px 0}
+    .toc{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+    .toc a{padding:8px 10px;border-radius:10px;color:var(--muted);text-decoration:none;font-weight:600}
+    .toc a.active{background:rgba(232,116,73,0.07);color:var(--accent)}
+
+    .lesson{background:var(--card);border-radius:14px;padding:18px;box-shadow:var(--shadow);margin-bottom:18px;border:1px solid rgba(16,24,40,0.02)}
+    .lesson h2{font-size:22px;margin-bottom:8px}
+    .meta{color:var(--muted);font-size:13px;margin-bottom:12px}
+
+    .qa{border-radius:12px;overflow:hidden;border:1px solid rgba(16,24,40,0.04)}
+    .q{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:#fff;cursor:pointer}
+    .q:hover{background:linear-gradient(90deg,#fff7f2,#fff)}
+    .q .label{font-weight:700}
+    .q .tag{font-size:12px;color:var(--muted);padding:6px 10px;border-radius:999px;border:1px solid rgba(16,24,40,0.04)}
+    .a{padding:16px;display:none;background:#fff;border-top:1px solid rgba(16,24,40,0.03)}
+    .qa.open .a{display:block}
+
+    .fox-quote{display:flex;gap:12px;align-items:flex-start}
+    .fox-avatar{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent-2),#FFD36A);display:grid;place-items:center;font-weight:900}
+    .quote{background:#fff;border-radius:10px;padding:12px;flex:1;border:1px solid rgba(16,24,40,0.03)}
+    .tip{display:inline-block;margin-top:10px;padding:8px 12px;border-radius:999px;background:rgba(232,116,73,0.09);color:var(--accent);font-weight:800;font-size:13px}
+
+    .big-cta{display:grid;grid-template-columns:1fr 360px;gap:24px;align-items:center;padding:26px;border-radius:16px;background:linear-gradient(90deg,#FFF7F0,#FFF6EE);box-shadow:var(--shadow);margin-top:30px}
+    .subscribe input{padding:14px;border-radius:10px;border:1px solid rgba(16,24,40,0.06);width:100%}
+    .subscribe button{padding:12px 18px;border-radius:10px;background:var(--accent);color:white;border:none;font-weight:800}
+
+    footer{margin-top:48px;text-align:center;color:var(--muted);font-size:13px}
+
+    @media (max-width:960px){
+      .hero{grid-template-columns:1fr;}
+      .content{grid-template-columns:1fr}
+      .sidebar{position:static}
+      .big-cta{grid-template-columns:1fr}
+    }
+
+    /* iPhone & small screen tweaks */
+    @media (max-width:600px){
+      body{padding-bottom:60px}
+      .wrap{padding:0 16px;margin:20px auto}
+      header{top:0;padding:4px 0}
+      .nav{flex-direction:column;align-items:flex-start;gap:10px}
+      nav ul{flex-wrap:wrap;gap:10px}
+      .hero{grid-template-columns:1fr;text-align:center;padding:24px 16px}
+      .hero-left{padding-right:0}
+      .headline{font-size:26px;line-height:1.2}
+      .subhead{font-size:15px}
+      .cta-row{flex-direction:column;align-items:center}
+      .hero-right{margin-top:18px}
+      .fox-wrap{width:200px;height:200px;padding:12px}
+      .content{grid-template-columns:1fr;gap:18px}
+      .sidebar{padding:12px;border-radius:12px}
+      .lesson{padding:14px}
+      .lesson h2{font-size:20px}
+      .big-cta{grid-template-columns:1fr;padding:20px 16px}
+      .subscribe form{flex-direction:column}
+      .subscribe input,.subscribe button{width:100%}
+      footer{padding:20px 0;font-size:12px}
+      .logo{width:48px;height:48px}
+      .logo-img{width:150%;height:150%}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="nav">
+        <div class="brand" onclick="location.href='#'" aria-label="Jokely Home">
+          <div class="logo" role="img" aria-hidden="true">
+  <img src="img/iconJokely.png" alt="Jokely Fox Logo" class="logo-img" />
+</div>
+
+          <div>
+            <div class="site-title">Jokely</div>
+            <div class="site-sub">Stand-Up School · Comedy Insights</div>
+          </div>
+        </div>
+
+<nav>
+        <ul>
+            <li><a href="index.html#school">Mobile App</a></li>
+            <li><a href="index.html#subscribe">Contacts</a></li>
+        </ul>
+    </nav>
+      </div>
+    </header>
+
+    <section class="hero" role="region" aria-label="Intro">
+      <div class="hero-left">
+        <div class="eyebrow">Learn Stand-up as never before</div>
+        <h1 class="headline"> It's simple: Write, Practice, Perform</h1>
+        <p class="subhead"> Jokely — the first smart, intuitive tool for anyone who wants to write comedy and perform like a pro </p>
+        <div class="cta-row">
+          <a class="cta" href="#school">Download App</a>
+          <a class="cta secondary" href="#resources">See Resources</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="fox-wrap" aria-hidden="true">
+          <!-- larger mascot illustration -->
+          <img class="fox" src="img/Chair.png" alt="Jokely fox mascot" />
+        </div>
+      </div>
+    </section>
+
+    <div class="content">
+      <aside class="sidebar" aria-label="Lesson navigation">
+        <h4>Lesson Categories</h4>
+        <ul class="toc" id="toc">
+          <li><a href="#writing" data-target="writing" class="active">Joke Writing</a></li>
+          <li><a href="#structure" data-target="structure">Setlist & Structure</a></li>
+          <li><a href="#performance" data-target="performance">Performance Analysis</a></li>
+          <li><a href="#crowd" data-target="crowd">Crowd Work</a></li>
+          <li><a href="#timing" data-target="timing">Timing & Rhythm</a></li>
+          <li><a href="#callbacks" data-target="callbacks">Callbacks & Themes</a></li>
+          <li><a href="#presence" data-target="presence">Stage Presence</a></li>
+          <li><a href="#bombing" data-target="bombing">Bombing & Recovery</a></li>
+          <li><a href="#recording" data-target="recording">Recording & Analysis</a></li>
+          <li><a href="#networking" data-target="networking">Networking & Booking</a></li>
+          <li><a href="#character" data-target="character">Character Development</a></li>
+          <li><a href="#hecklers" data-target="hecklers">Hecklers</a></li>
+          <li><a href="#industry" data-target="industry">Industry & Business</a></li>
+          <li><a href="#tech" data-target="tech">Tech & Productivity</a></li>
+          <li><a href="#ai" data-target="ai">AI & Future Tools</a></li>
+        </ul>
+      </aside>
+
+      <main>
+        <!-- Writing -->
+        <section id="writing" class="lesson" tabindex="0">
+          <h2>Joke Writing Mechanics</h2>
+          <div class="meta">Setup. Misdirection. Payoff. Repeat.</div>
+
+          <div class="qa" aria-expanded="false">
+            <div class="q" role="button" tabindex="0">
+              <div>
+                <div class="label">What is the difference between a Setup and a Punchline?</div>
+                <div class="meta">Short answer: the setup lies, the punchline corrects it.</div>
+              </div>
+              <div class="tag">Jokely Tip</div>
+            </div>
+            <div class="a">
+              <div class="fox-quote">
+                <div class="fox-avatar">🦊</div>
+                <div class="quote"><strong>Setup</strong> lays a believable track. <strong>Punchline</strong> derails it with a surprise. Misdirection is the motor. If the engine's weak, the punch won't take you anywhere.<div class="tip">Record setups and punchlines separately — the app highlights the dead words.</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="qa" aria-expanded="false">
+            <div class="q" role="button" tabindex="0">
+              <div>
+                <div class="label">How do I overcome writer's block when starting a new set?</div>
+                <div class="meta">Spoiler: stop needing perfection.</div>
+              </div>
+              <div class="tag">Voice First</div>
+            </div>
+            <div class="a">
+              <div class="fox-quote">
+                <div class="fox-avatar">🦊</div>
+                <div class="quote">Writer's block is fear with a name tag. Say whatever's true and dumb first — collect premises, then sharpen. Use quick voice notes: your brain is terrible at saving punchlines unless you do. <div class="tip">Jot premises, not jokes. Edit later.</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="qa" aria-expanded="false">
+            <div class="q" role="button" tabindex="0">
+              <div>
+                <div class="label">How many punchlines should one joke have?</div>
+                <div class="meta">One knockout, optional tags.</div>
+              </div>
+              <div class="tag">#MainPunch</div>
+            </div>
+            <div class="a">
+              <div class="fox-quote">
+                <div class="fox-avatar">🦊</div>
+                <div class="quote">Start with one punch that slaps. Add tags only when they hit as hard. Most newbies add filler that slows the laugh. Track which tags live and which die — analytics don't lie.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Structure -->
+        <section id="structure" class="lesson" tabindex="0">
+          <h2>Setlist & Structure</h2>
+          <div class="meta">Order matters. Your memory falters; your structure shouldn't.</div>
+
+          <div class="qa">
+            <div class="q" role="button" tabindex="0">
+              <div>
+                <div class="label">How should I organize my first 5-minute open mic set?</div>
+                <div class="meta">First and last rule.</div>
+              </div>
+              <div class="tag">#Opener</div>
+            </div>
+            <div class="a">
+              <div class="fox-quote">
+                <div class="fox-avatar">🦊</div>
+                <div class="quote">Open with your best joke. End with your best closer. Between them, place two to three solid bits that flow in energy. Don’t test radical new material in the first 30 seconds — the room doesn't owe you a warm-up. <div class="tip">Tag each joke as #Opener, #Closer, #A_Material and build sets by drag+filter.</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="qa">
+            <div class="q" role="button" tabindex="0">
+              <div>
+                <div class="label">Should I memorize my set word-for-word or use bullet points?</div>
+                <div class="meta">Precision where it matters.</div>
+              </div>
+              <div class="tag">Stage Rule</div>
+            </div>
+            <div class="a">
+              <div class="fox-quote">
+                <div class="fox-avatar">🦊</div>
+                <div class="quote">Memorize punchlines exactly; let setups breathe. Word-perfect payoffs are what buy you laughs. If you ad-lib the punchline, you gamble with the timing. Use Performance Mode to see where you must be precise.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Performance -->
+        <section id="performance" class="lesson" tabindex="0">
+          <h2>Stage Performance Analysis</h2>
+          <div class="meta">Record. Compare. Improve.</div>
+
+          <div class="qa">
+            <div class="q" role="button" tabindex="0">
+              <div>
+                <div class="label">What should I do immediately after I "bomb" on stage?</div>
+                <div class="meta">Don't sulk. Collect data.</div>
+              </div>
+              <div class="tag">Field Notes</div>
+            </div>
+            <div class="a">
+              <div class="fox-quote">
+                <div class="fox-avatar">🦊</div>
+                <div class="quote">Write down three things: the moment the room checked out, what you changed from your script, and any outside factors (mics, noise, crowd). Bombing is feedback — harvest it. Later, listen to the recording and isolate the exact syllable where it went south.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="qa">
+            <div class="q" role="button" tabindex="0">
+              <div>
+                <div class="label">How do I know if my energy level is right?</div>
+                <div class="meta">Match energy to material.</div>
+              </div>
+              <div class="tag">#Energy</div>
+            </div>
+            <div class="a">
+              <div class="fox-quote">
+                <div class="fox-avatar">🦊</div>
+                <div class="quote">If you look bored, the crowd is bored. If you're frantic, they're confused. Record sets — pick the energy where the laughs hit hardest. Tag jokes with #HighEnergy or #Deadpan to build flow that breathes.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Crowd Work -->
+        <section id="crowd" class="lesson" tabindex="0">
+          <h2>Crowd Work & Improv</h2>
+          <div class="meta">Crowd work is a tool, not a hobby.</div>
+
+          <div class="qa">
+            <div class="q" role="button" tabindex="0">
+              <div>
+                <div class="label">When should I do crowd work vs stick to my material?</div>
+                <div class="meta">Use it to recover or amplify.</div>
+              </div>
+              <div class="tag">Pivot</div>
+            </div>
+            <div class="a">
+              <div class="fox-quote">
+                <div class="fox-avatar">🦊</div>
+                <div class="quote">If your written stuff's landing, don't gamble. Use crowd work when the room's cold or after a bomb to reset energy. Keep safe scripts: quick questions that create a clear riff. Build a catalog of reliable crowd prompts in your notes.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="qa">
+            <div class="q" role="button" tabindex="0">
+              <div>
+                <div class="label">What's a safe crowd work question?</div>
+                <div class="meta">Short, universal, riffable.</div>
+              </div>
+              <div class="tag">#GoTo</div>
+            </div>
+            <div class="a">
+              <div class="fox-quote">
+                <div class="fox-avatar">🦊</div>
+                <div class="quote">"What do you do for work?"—safe, easy to riff, and often yields gold. Avoid personal trauma or religion. After the show, tag the successful interactions so you can reuse them precisely.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Timing -->
+        <section id="timing" class="lesson" tabindex="0">
+          <h2>Timing & Rhythm</h2>
+          <div class="meta">Good silence is worth a round of applause.</div>
+
+          <div class="qa">
+            <div class="q" role="button" tabindex="0">
+              <div>
+                <div class="label">How do I know if I'm rushing through my punchlines?</div>
+                <div class="meta">Let laughs breathe.</div>
+              </div>
+              <div class="tag">Pace</div>
+            </div>
+            <div class="a">
+              <div class="fox-quote">
+                <div class="fox-avatar">🦊</div>
+                <div class="quote">If laughs don't land, you're too fast. Count "one-Mississippi" after the punchline before moving on. Track stage vs rehearsal timing—if stage is 20–30% faster, slow down. The crowd needs a beat to give permission to laugh.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="qa">
+            <div class="q" role="button" tabindex="0">
+              <div>
+                <div class="label">What's the ideal setup length?</div>
+                <div class="meta">Concise wins.</div>
+              </div>
+              <div class="tag">15–30s</div>
+            </div>
+            <div class="a">
+              <div class="fox-quote">
+                <div class="fox-avatar">🦊</div>
+                <div class="quote">For open mics, aim for 15–30 seconds. Longer setups need authority and narrative pull. If you lose them in the setup, the payoff dies. Edit mercilessly.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Callbacks (answered) -->
+        <section id="callbacks" class="lesson" tabindex="0">
+          <h2>Callbacks & Themes</h2>
+          <div class="meta">Callbacks are cheat codes when done right.</div>
+
+          <div class="qa">
+            <div class="q" role="button" tabindex="0">
+              <div>
+                <div class="label">What is a callback and when should I use it?</div>
+                <div class="meta">Return to a joke later for compounded laughs.</div>
+              </div>
+              <div class="tag">Theme</div>
+            </div>
+            <div class="a">
+              <div class="fox-quote">
+                <div class="fox-avatar">🦊</div>
+                <div class="quote">A callback references an earlier joke in the set to amplify the laugh. Use callbacks as anchors — they make the set feel like a finished story. Don't force them; plant seeds early and harvest them late.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="qa">
+            <div class="q" role="button" tabindex="0">
+              <div>
+                <div class="label">How many callbacks are too many?</div>
+                <div class="meta">Less is more.</div>
+              </div>
+              <div class="tag">Rule</div>
+            </div>
+            <div class="a">
+              <div class="fox-quote">
+                <div class="fox-avatar">🦊</div>
+                <div class="quote">One or two solid callbacks in a short set is enough. Overusing callbacks turns your show into an inside joke the audience doesn't share. Use them to reward attention, not to punish missed lines.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Presence (answered) -->
+        <section id="presence" class="lesson" tabindex="0">
+          <h2>Stage Presence</h2>
+          <div class="meta">Presence beats lines when you're unsure.</div>
+
+          <div class="qa">
+            <div class="q" role="button" tabindex="0">
+              <div>
+                <div class="label">What's stage presence, really?</div>
+                <div class="meta">Energy, control, and intention.</div>
+              </div>
+              <div class="tag">First Impression</div>
+            </div>
+            <div class="a">
+              <div class="fox-quote">
+                <div class="fox-avatar">🦊</div>
+                <div class="quote">Stage presence is how you occupy silence. It's not showy moves — it's breathing, pauses, eye contact, and the confidence to hold a joke. Practice walk-ons and the first 10 seconds until they feel inevitable.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Bombing (answered) -->
+        <section id="bombing" class="lesson" tabindex="0">
+          <h2>Bombing & Recovery</h2>
+          <div class="meta">Bombs are tuition — expensive, but educational.</div>
+
+          <div class="qa">
+            <div class="q" role="button" tabindex="0">
+              <div>
+                <div class="label">How do I recover from bombing?</div>
+                <div class="meta">Short-term: reset. Long-term: learn.</div>
+              </div>
+              <div class="tag">Recover</div>
+            </div>
+            <div class="a">
+              <div class="fox-quote">
+                <div class="fox-avatar">🦊</div>
+                <div class="quote">Onstage: smile, reset with safe crowd work, and move on—don't apologize or explain. Offstage: write down the exact moment and reason, then test a revised version next time. Bombs refine your taste faster than success.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Recording (answered) -->
+        <section id="recording" class="lesson" tabindex="0">
+          <h2>Recording & Analysis</h2>
+          <div class="meta">Numbers tell you what your gut lies about.</div>
+
+          <div class="qa">
+            <div class="q" role="button" tabindex="0">
+              <div>
+                <div class="label">What should I record and analyze?</div>
+                <div class="meta">Audio, video, and notes.</div>
+              </div>
+              <div class="tag">Analytics</div>
+            </div>
+            <div class="a">
+              <div class="fox-quote">
+                <div class="fox-avatar">🦊</div>
+                <div class="quote">Record every set. Track laugh length, timing, and where you change words. Use timestamps to correlate jokes with audience reaction. Over time you'll know which words are oxygen and which are dead weight.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Networking (answered) -->
+        <section id="networking" class="lesson" tabindex="0">
+          <h2>Networking & Booking</h2>
+          <div class="meta">Relationships > One perfect set.</div>
+
+          <div class="qa">
+            <div class="q" role="button" tabindex="0">
+              <div>
+                <div class="label">How do I get booked for paid gigs?</div>
+                <div class="meta">Show up. Be useful. Be reliable.</div>
+              </div>
+              <div class="tag">Career</div>
+            </div>
+            <div class="a">
+              <div class="fox-quote">
+                <div class="fox-avatar">🦊</div>
+                <div class="quote">Cultivate relationships with bookers, hosts, and venue staff. Offer value (help promote shows, bring friends). Deliver clean, reliable sets — reputation travels faster than demos.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Character (answered) -->
+        <section id="character" class="lesson" tabindex="0">
+          <h2>Character Development</h2>
+          <div class="meta">Be interestingly honest.</div>
+
+          <div class="qa">
+            <div class="q" role="button" tabindex="0">
+              <div>
+                <div class="label">How do I build a comedic persona?</div>
+                <div class="meta">Borrow from truth, exaggerate for effect.</div>
+              </div>
+              <div class="tag">Voice</div>
+            </div>
+            <div class="a">
+              <div class="fox-quote">
+                <div class="fox-avatar">🦊</div>
+                <div class="quote">Your persona is a sharpened version of your truth. Pick consistent attitudes, recurring lines, and an angle on life. Test it; if audiences can describe you in one sentence afterward, you have a persona.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Hecklers (answered) -->
+        <section id="hecklers" class="lesson" tabindex="0">
+          <h2>Dealing with Hecklers</h2>
+          <div class="meta">Win the room, not the argument.</div>
+
+          <div class="qa">
+            <div class="q" role="button" tabindex="0">
+              <div>
+                <div class="label">How should I handle hecklers?</div>
+                <div class="meta">Cool, quick, audience-first.</div>
+              </div>
+              <div class="tag">Control</div>
+            </div>
+            <div class="a">
+              <div class="fox-quote">
+                <div class="fox-avatar">🦊</div>
+                <div class="quote">Don't argue. Make the audience your ally with a quick, funny line that signals you're steering the ship. If someone gets aggressive, remove them politely or call the host. Your job is to keep the room safe for laughter.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Industry (answered) -->
+        <section id="industry" class="lesson" tabindex="0">
+          <h2>Industry & Business</h2>
+          <div class="meta">Comedy is art + hustle.</div>
+
+          <div class="qa">
+            <div class="q" role="button" tabindex="0">
+              <div>
+                <div class="label">How do I turn performing into income?</div>
+                <div class="meta">Multiple revenue streams win.</div>
+              </div>
+              <div class="tag">Money</div>
+            </div>
+            <div class="a">
+              <div class="fox-quote">
+                <div class="fox-avatar">🦊</div>
+                <div class="quote">Gig fees, headlining splits, writing for others, workshops, brand deals, and podcasts — diversify. Track income and expenses. Treat comedy like a small business, not a hobby with invoices.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Tech (answered) -->
+        <section id="tech" class="lesson" tabindex="0">
+          <h2>Tech & Productivity</h2>
+          <div class="meta">Use the right tools, not more tools.</div>
+
+          <div class="qa">
+            <div class="q" role="button" tabindex="0">
+              <div>
+                <div class="label">Which tools help me write and track jokes?</div>
+                <div class="meta">Simple capture + analytics.</div>
+              </div>
+              <div class="tag">Apps</div>
+            </div>
+            <div class="a">
+              <div class="fox-quote">
+                <div class="fox-avatar">🦊</div>
+                <div class="quote">Voice memos, a notes app you actually use, and a basic spreadsheet for tracking gig data. Jokely's tagging and recording features combine capture with analytics so you know what to keep and what to kill.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- AI (answered) -->
+        <section id="ai" class="lesson" tabindex="0">
+          <h2>AI & Future Tools</h2>
+          <div class="meta">AI helps edit; you decide taste.</div>
+
+          <div class="qa">
+            <div class="q" role="button" tabindex="0">
+              <div>
+                <div class="label">Is AI going to replace joke writers?</div>
+                <div class="meta">No — it augments.</div>
+              </div>
+              <div class="tag">Future</div>
+            </div>
+            <div class="a">
+              <div class="fox-quote">
+                <div class="fox-avatar">🦊</div>
+                <div class="quote">AI can suggest edits, spot dead words, and simulate audience reaction — but taste is human. Use AI for brute-force testing and editing, then trust live-room feedback to choose what survives.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Resources CTA -->
+        <section id="resources" class="lesson" tabindex="0">
+          <h2>Resources & Tools</h2>
+          <div class="meta">Quick links, recommended reads, and templates.</div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
+            <a class="cta secondary" href="#">Joke Tagging Template</a>
+            <a class="cta secondary" href="#">Setlist CSV Export</a>
+            <a class="cta secondary" href="#">Recording Best Practices</a>
+          </div>
+        </section>
+
+        <!-- Big CTA / Subscribe -->
+        <section class="big-cta" id="subscribe" aria-label="Subscribe">
+          <div>
+            <h3>Stop losing material. Start polishing it daily.</h3>
+            <p class="meta">Get Jokely tips, short lessons, and product updates — once a week. No spam. Just jokes.</p>
+            <form class="subscribe" onsubmit="subscribe(event)">
+              <div style="display:flex;gap:8px;margin-top:12px">
+                <input id="email" type="email" placeholder="your@email.com" required aria-label="Email">
+                <button type="submit">Get Weekly Tips</button>
+              </div>
+            </form>
+          </div>
+          <div>
+            <div style="padding:18px;border-radius:12px;background:linear-gradient(180deg,#fff,#fff);box-shadow:var(--shadow);border:1px solid rgba(16,24,40,0.03)">
+              <strong>Jokely Says</strong>
+              <p style="margin-top:10px;color:var(--muted)">"Write like a fox: quick, hungry, and full of teeth. Record everything. Keep only what bites."</p>
+            </div>
+          </div>
+        </section>
+
+        <footer>
+          <div>© Jokely Stand-Up School — Built with a fox's wit · <a href="#" style="color:var(--muted)">Privacy</a> · <a href="#" style="color:var(--muted)">Terms</a></div>
+        </footer>
+      </main>
+    </div>
+
+  </div>
+
+  <script>
+    // Simple accordion toggles
+    document.querySelectorAll('.qa .q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const qa = btn.closest('.qa');
+        qa.classList.toggle('open');
+        qa.setAttribute('aria-expanded', qa.classList.contains('open'));
+      });
+      btn.addEventListener('keypress', (e)=>{ if(e.key==='Enter' || e.key===' ') btn.click(); });
+    });
+
+    // Smooth scroll for toc
+    document.querySelectorAll('#toc a').forEach(link=>{
+      link.addEventListener('click', (e)=>{
+        e.preventDefault();
+        document.querySelectorAll('#toc a').forEach(a=>a.classList.remove('active'));
+        link.classList.add('active');
+        const id = link.getAttribute('href');
+        const el = document.querySelector(id);
+        if(el){
+          window.scrollTo({top: el.offsetTop - 80, behavior:'smooth'});
+          el.focus({preventScroll:true});
+        }
+      });
+    });
+
+    // tiny subscribe handler (no backend) — show subtle confirmation
+    function subscribe(e){
+      e.preventDefault();
+      const email = document.getElementById('email');
+      if(!email.value) return;
+      const old = email.value;
+      email.value='';
+      alert('Thanks — Jokely will send the goods to ' + old + '.');
+    }
+
+    // Accessibility: enable keyboard for sidebar links
+    document.querySelectorAll('#toc a').forEach(a=>a.addEventListener('keypress', (e)=>{ if(e.key==='Enter') a.click(); }));
+  </script>
+</body>
+</html>
