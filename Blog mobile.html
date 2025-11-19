@@ -71,16 +71,17 @@
       cursor: pointer;
     }
 
-    .logo {
-      width: 56px; height: 56px;
-      border-radius: 14px;
-      display: grid; place-items: center;
-      background: linear-gradient(135deg, var(--accent-2), #FFD36A);
-      box-shadow: var(--shadow-sm);
-      padding: 8px;
-    }
-    .logo-img { width: 100%; height: 100%; object-fit: contain; }
+/* 1. КОНТЕЙНЕР: УСТАНАВЛИВАЕМ ЖЕЛАЕМЫЙ КОНЕЧНЫЙ РАЗМЕР И ФОН */
 
+
+/* 2. ИЗОБРАЖЕНИЕ: ДОЛЖНО ПОЛНОСТЬЮ ЗАПОЛНИТЬ КОНТЕЙНЕР */
+.logo-img {
+  /* Изображение занимает всю площадь контейнера 56x56px */
+  width: 64px;
+  height: 64px;
+  /* 'contain' или 'cover' — выбирайте, как лучше заполнить, 'contain' сохранит пропорции */
+  object-fit: contain;
+}
     .site-title { font-weight: 800; font-size: 20px; line-height: 1; }
     .site-sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
 
