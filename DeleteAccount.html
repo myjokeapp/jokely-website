@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Account - Jokely</title>
+    <meta name="robots" content="noindex">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #FFF9F2;
+            --text: #2b2b2b;
+            --muted: #6e5a49;
+            --accent: #E87449;
+            --container: 600px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding-bottom: 60px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { opacity: 0.8; }
+
+        header {
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            background: rgba(255,255,255,0.5);
+        }
+
+        .nav-container {
+            max-width: var(--container);
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            font-family: "Quicksand", sans-serif;
+            font-weight: 700;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand img { width: 40px; height: 40px; }
+
+        .content {
+            max-width: var(--container);
+            margin: 60px auto;
+            padding: 0 24px;
+            flex: 1;
+        }
+
+        h1 { font-size: 32px; margin-bottom: 20px; }
+        h2 { font-size: 20px; margin-top: 30px; margin-bottom: 10px; }
+        p { margin-bottom: 16px; color: #444; }
+
+        .method-card {
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            border: 1px solid rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="brand">
+                <img src="img/iconJokely.png" alt="Logo">
+                Jokely
+            </a>
+            <a href="index.html" style="font-weight: 600; font-size: 14px;">← Home</a>
+        </div>
+    </header>
+
+    <div class="content">
+        <h1>Request Account Deletion</h1>
+        <p>We value your privacy. You can permanently delete your account and all associated data (jokes, sets, recordings) at any time.</p>
+
+        <div class="method-card">
+            <h2>Option 1: Delete via App (Recommended)</h2>
+            <p>This is the fastest way. Your data will be deleted immediately.</p>
+            <ol style="padding-left: 20px; margin-bottom: 10px; color: #444;">
+                <li>Open <strong>Jokely App</strong>.</li>
+                <li>Go to <strong>Profile / Settings</strong>.</li>
+                <li>Scroll down and tap <strong>Delete Account</strong>.</li>
+                <li>Confirm your choice.</li>
+            </ol>
+        </div>
+
+        <div class="method-card">
+            <h2>Option 2: Request via Email</h2>
+            <p>If you cannot access the app, you can request deletion manually. We will process your request within 30 days.</p>
+            <p>Please email us from the email address associated with your account:</p>
+            <a href="mailto:jokely.co@gmail.com?subject=Delete%20My%20Account" class="button">Email Support</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Jokely. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
