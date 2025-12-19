@@ -61,7 +61,77 @@
     a{color:inherit;text-decoration:none}
 
     .container{max-width:var(--container);margin:0 auto;padding:0 20px}
+/* --- New Phone Mockup Styles --- */
+.phone-container {
+  position: relative;
+  width: 280px; /* Standard phone width */
+  height: 580px;
+  margin: 0 auto;
+  z-index: 5;
+  perspective: 1000px;
+}
 
+.phone-frame {
+  width: 100%;
+  height: 100%;
+  background: #1a1a1a; /* Dark frame color */
+  border-radius: 40px;
+  padding: 12px;
+  box-shadow:
+    0 50px 100px -20px rgba(50,50,93,0.25),
+    0 30px 60px -30px rgba(0,0,0,0.3),
+    inset 0 0 2px 2px rgba(255,255,255,0.1);
+  position: relative;
+  transform: rotateY(-10deg) rotateX(5deg); /* Creative tilt */
+  transition: transform 0.5s ease;
+}
+
+.phone-frame:hover {
+  transform: rotateY(0deg) rotateX(0deg) scale(1.02);
+}
+
+/* The "Dynamic Island" / Notch */
+.phone-frame::before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 25px;
+  background: #000;
+  border-radius: 15px;
+  z-index: 10;
+}
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border-radius: 32px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+.phone-screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures your screenshot fills the screen */
+}
+
+/* Decorative background blob for the Hero section */
+.hero-art::after {
+  content: "";
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: var(--accent-2);
+  filter: blur(80px);
+  border-radius: 50%;
+  z-index: -1;
+  opacity: 0.6;
+}
     /* subtle paper grain using SVG data URI */
     body::before{
       content:"";
@@ -254,12 +324,15 @@
         <p class="small" style="margin-top:12px">We won't spam — just one email when we launch.</p>
       </div>
 
-      <div class="hero-art" aria-hidden="true" data-aos="zoom-in">
-        <div class="frame">
-          <!-- use provided stage illustration -->
-          <img src="img/Hand.png" alt="Illustration: stage and microphone" loading="lazy">
-        </div>
+<div class="hero-art" aria-hidden="true" data-aos="zoom-in">
+  <div class="phone-container">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <img src="img/ShowScreen.PNG" alt="Jokely App Home Screen">
       </div>
+    </div>
+  </div>
+</div>
     </section>
 
     <!-- ABOUT -->
@@ -286,19 +359,37 @@
         </div>
       </div>
 
-      <div class="feature-row" style="margin-bottom:30px">
-        <div class="feature-text">
-          <h3 class="section-title">Record & review</h3>
-          <p class="muted">Record rehearsals, automatically transcribe and spot timing or delivery issues quickly.</p>
-        </div>
-        <div class="feature-image">
-          <div class="card" style="max-width:320px">
-            <div style="font-size:28px;margin-bottom:10px">🎙️</div>
-            <div style="font-weight:700;margin-bottom:6px">Performance Mode</div>
-            <div class="muted">Hands-free view for live shows and rehearsals.</div>
-          </div>
+     <div class="feature-row" style="margin-bottom:80px">
+  <div class="feature-text">
+    <h3 class="section-title">Write & organize</h3>
+    <p class="muted">A quick, distraction-free editor with tags and set lists so ideas are always ready for stage.</p>
+  </div>
+  <div class="feature-image" data-aos="fade-left">
+    <div class="phone-container" style="width: 240px; height: 500px;">
+      <div class="phone-frame" style="transform: rotateY(15deg);">
+        <div class="phone-screen">
+          <img src="img/WriteScreen.PNG" alt="Jokely Editor Screen">
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="feature-row" style="margin-bottom:80px">
+  <div class="feature-text">
+    <h3 class="section-title">Record & review</h3>
+    <p class="muted">Record rehearsals, automatically transcribe and spot timing or delivery issues quickly.</p>
+  </div>
+  <div class="feature-image" data-aos="fade-right">
+    <div class="phone-container" style="width: 240px; height: 500px;">
+      <div class="phone-frame" style="transform: rotateY(-15deg);">
+        <div class="phone-screen">
+          <img src="img/QuickPerformance.PNG" alt="Performance Mode Screen">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
     </section>
 
     <!-- KEY FEATURES GRID -->
