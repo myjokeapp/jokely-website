@@ -1,10 +1,515 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <meta name="theme-color" content="#FFD93D">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Jokely — Download App</title>
+  <meta name="description" content="Jokely — write jokes, record your shows and improve stage performance. Download for free on iOS." />
+  <meta name="theme-color" content="#FFF8EE" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #FFF9F2;
+      --cream: #FFF2D9;
+      --card: #FFFDFB;
+      --muted: #6e5a49;
+      --accent-1: #FFB566; /* warm orange */
+      --accent-2: #FFE7A6; /* pale yellow */
+      --accent-3: #FFDDE1; /* soft pink */
+      --shadow: 0 18px 50px rgba(30,30,30,0.06);
+      --radius: 18px;
+      --container: 1200px;
+    }
+
+    .mascot-img {
+      width: 180px;
+      max-width: 100%;
+      height: auto;
+      border-radius: 14px;
+      border: 4px solid rgba(0,0,0,0.03);
+      display: block;
+    }
+
+    /* Reset */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Quicksand", Arial;
+      background: var(--bg);
+      color: #2b2b2b;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      padding-top:80px; /* space for fixed header */
+    }
+
+    img{max-width:100%;height:auto;display:block}
+    a{color:inherit;text-decoration:none}
+
+    .container{max-width:var(--container);margin:0 auto;padding:0 20px}
+
+    /* --- Phone Mockup Styles --- */
+    .phone-container {
+      position: relative;
+      width: 280px;
+      height: 580px;
+      margin: 0 auto;
+      z-index: 5;
+      perspective: 1000px;
+    }
+
+    .phone-frame {
+      width: 100%;
+      height: 100%;
+      background: #1a1a1a;
+      border-radius: 40px;
+      padding: 12px;
+      box-shadow:
+        0 50px 100px -20px rgba(50,50,93,0.25),
+        0 30px 60px -30px rgba(0,0,0,0.3),
+        inset 0 0 2px 2px rgba(255,255,255,0.1);
+      position: relative;
+      transform: rotateY(-10deg) rotateX(5deg);
+      transition: transform 0.5s ease;
+    }
+
+    .phone-frame:hover {
+      transform: rotateY(0deg) rotateX(0deg) scale(1.02);
+    }
+
+    .phone-frame::before {
+      content: "";
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 25px;
+      background: #000;
+      border-radius: 15px;
+      z-index: 10;
+    }
+
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      border-radius: 32px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .phone-screen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Decorative background blob */
+    .hero-art::after {
+      content: "";
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: var(--accent-2);
+      filter: blur(80px);
+      border-radius: 50%;
+      z-index: -1;
+      opacity: 0.6;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;inset:0;
+      pointer-events:none;
+      background-image:
+        radial-gradient(rgba(255,255,255,0.35) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+      background-size: 8px 8px, 100% 100%;
+      mix-blend-mode: overlay;
+      opacity:0.5;
+    }
+
+    /* Header */
+    header{
+      position:fixed;left:0;right:0;top:0;z-index:1000;
+      background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.92));
+      border-bottom:1px solid rgba(0,0,0,0.04);
+      backdrop-filter: blur(6px);
+    }
+
+    nav.container{
+      display:flex;align-items:center;justify-content:space-between;padding:14px 0;
+      gap:10px;
+    }
+
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand .logo{width:64px;height:64px;}
+    .brand img{width:100%;height:100%;object-fit:cover}
+    .brand h1{font-size:18px;font-weight:700;color:#2b2b2b}
+
+    .nav-links{display:flex;gap:18px;align-items:center}
+    .nav-links a{padding:8px 12px;border-radius:10px;font-weight:600;font-size:15px;color:var(--muted)}
+    .nav-links a:hover{background:rgba(255,181,102,0.12);color:#2b2b2b}
+
+    /* Updated CTA Button Style */
+    .cta-small{
+      background:linear-gradient(135deg,var(--accent-1),#ff9e3b);
+      padding:10px 18px;
+      border-radius:10px;
+      color:white;
+      font-weight:700;
+      box-shadow:0 8px 24px rgba(255,158,59,0.18);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.2s ease;
+    }
+    .cta-small:hover {
+      transform: translateY(-2px);
+      box-shadow:0 12px 28px rgba(255,158,59,0.25);
+    }
+
+    /* hamburger */
+    .menu-toggle{display:none;background:transparent;border:0;padding:8px;border-radius:8px}
+
+    /* Hero */
+    .hero{
+      margin:28px auto;border-radius:calc(var(--radius) + 6px);
+      background: linear-gradient(180deg,var(--card),#fffbf7);
+      box-shadow:var(--shadow);padding: clamp(28px,5vw,64px);
+      display:grid;grid-template-columns: 1fr 480px;gap:28px;align-items:center;
+      border:1px solid rgba(0,0,0,0.03);
+      overflow:visible;
+    }
+
+    .hero-left .eyebrow{display:inline-block;padding:6px 12px;border-radius:999px;background:linear-gradient(90deg,var(--accent-2),#fff4d9);font-weight:700;color:#6b452b;margin-bottom:12px;box-shadow:0 6px 18px rgba(0,0,0,0.04)}
+    .hero h2{font-size:clamp(1.6rem,4vw,2.6rem);line-height:1.05;margin-bottom:14px;color:#2b2b2b;font-weight:700}
+    .hero p{color:var(--muted);margin-bottom:20px;font-size:1rem}
+
+    .cta-row{display:flex;gap:12px;flex-wrap:wrap; align-items: center;}
+
+    .btn-primary{
+      background:linear-gradient(135deg,var(--accent-1),#ff9e3b);
+      color:white;
+      padding:14px 24px;
+      border-radius:12px;
+      font-weight:800;
+      border:0;
+      box-shadow:0 12px 32px rgba(255,158,59,0.12);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.2s ease;
+    }
+    .btn-primary:hover{
+      transform: translateY(-2px);
+      box-shadow:0 16px 40px rgba(255,158,59,0.22);
+    }
+    .btn-primary svg { width: 20px; height: 20px; fill: currentColor; }
+
+    .btn-ghost{background:transparent;padding:12px 16px;border-radius:12px;border:1px solid rgba(0,0,0,0.04);font-weight:700}
+
+    /* hero right - illustration */
+    .hero-art{
+      position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+    }
+    .hero-art .frame{
+      width:420px;max-width:100%;border-radius:22px;overflow:hidden;border:6px solid rgba(0,0,0,0.04);
+      background:linear-gradient(180deg,#fff,#fff6ea);box-shadow:0 22px 60px rgba(30,30,30,0.06);
+    }
+    .hero-art img{display:block;width:100%;height:100%;object-fit:cover}
+
+    /* Sections */
+    section{padding:72px 0}
+    .section-title{font-family:'Quicksand', 'Poppins', sans-serif;font-weight:600;font-size:clamp(1.25rem,2.8vw,1.8rem);margin-bottom:12px}
+    .muted{color:var(--muted)}
+
+    /* features grid */
+    .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{
+      background:linear-gradient(180deg,#fff,#fffdf9);border-radius:14px;padding:20px;border:1px solid rgba(0,0,0,0.03);
+      box-shadow: 0 8px 30px rgba(30,30,30,0.04);
+    }
+    .feature-emoji{font-size:34px;margin-bottom:10px;display:inline-block}
+
+    /* feature rows */
+    .feature-row{display:flex;gap:24px;align-items:center}
+    .feature-row:nth-child(even){flex-direction:row-reverse}
+    .feature-text{flex:1}
+    .feature-image{flex:1;display:flex;justify-content:center;align-items:center}
+
+    /* reviews */
+    .reviews-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    .quote{font-style:italic;color:var(--muted);margin-bottom:10px}
+
+    /* pricing */
+    .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .pricing-card{text-align:center;padding:20px;border-radius:14px;background:linear-gradient(180deg,#fff,#fff);border:1px solid rgba(0,0,0,0.03);box-shadow:0 8px 30px rgba(30,30,30,0.03)}
+
+    /* Download Section (Replacing Notify) */
+    .notify{
+      display:flex;gap:18px;align-items:center;padding:32px;
+      border-radius:24px;
+      background:linear-gradient(180deg,var(--accent-3),var(--accent-2));
+      border:1px solid rgba(0,0,0,0.03);
+    }
+    .notify-left{flex:1}
+    .notify-right{flex:0 0 280px;display:flex;justify-content:center}
+
+    .download-area {
+      margin-top: 20px;
+      display: flex;
+      gap: 12px;
+    }
+
+    /* footer */
+    footer{padding:36px 0;color:var(--muted);border-top:1px dashed rgba(0,0,0,0.03)}
+    .footer-links{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:10px}
+
+    /* Utilities */
+    .center{text-align:center}
+    .small{font-size:0.9rem;color:var(--muted)}
+
+    /* Responsive */
+    @media (max-width:1100px){
+      .hero{grid-template-columns:1fr 380px}
+      .features-grid{grid-template-columns:repeat(2,1fr)}
+      .pricing-grid{grid-template-columns:repeat(2,1fr)}
+    }
+
+    @media (max-width:768px){
+      .menu-toggle{display:inline-flex}
+      .nav-links{display:none;position:fixed;left:12px;right:12px;top:72px;background:var(--card);padding:12px;border-radius:12px;box-shadow:0 12px 36px rgba(30,30,30,0.08);flex-direction:column;gap:10px}
+      nav.open .nav-links{display:flex}
+      .hero{grid-template-columns:1fr;padding:22px}
+      .hero-art .frame{width:320px}
+      .features-grid{grid-template-columns:1fr}
+      .reviews-grid{grid-template-columns:1fr}
+      .pricing-grid{grid-template-columns:1fr}
+      .feature-row{flex-direction:column !important}
+      .notify{flex-direction:column;text-align:center; padding: 24px;}
+      .notify-right{order:2;margin-top:12px}
+      .download-area{justify-content: center;}
+    }
+
+    @media (prefers-reduced-motion:reduce){
+      *{transition:none!important;animation:none!important}
+    }
+
+  </style>
 </head>
 <body>
-$END$
+
+  <header aria-hidden="false">
+    <nav class="container" role="navigation" aria-label="Main">
+      <div class="brand" aria-hidden="false">
+        <div class="logo" aria-hidden="true">
+          <img src="img/iconJokely.png" alt="Jokely mascot" loading="lazy">
+        </div>
+        <h1>Jokely</h1>
+      </div>
+
+      <button class="menu-toggle" aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="#2b2b2b" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+
+      <div id="primary-nav" class="nav-links" role="menubar" aria-label="Primary">
+        <a role="menuitem" href="#about">About</a>
+        <a role="menuitem" href="#features">Features</a>
+        <a role="menuitem" href="Blog%20mobile.html">Blog</a>
+        <a role="menuitem" href="#reviews">Reviews</a>
+        <a role="menuitem" href="https://apps.apple.com/de/app/jokely-stand-up-comedy/id6744562322" class="cta-small" target="_blank">
+          Download
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero container" aria-labelledby="hero-title" data-aos="fade-up">
+      <div class="hero-left">
+        <div class="eyebrow">Available now</div>
+        <h2 id="hero-title">Jokely — write jokes and perform stand-up comedy</h2>
+        <p class="muted">A cozy, friendly app to capture ideas, rehearse with recordings, and track what truly makes audiences laugh.</p>
+
+        <div class="cta-row" role="group" aria-label="Hero calls">
+          <a class="btn-primary" href="https://apps.apple.com/de/app/jokely-stand-up-comedy/id6744562322" target="_blank">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.8 0 2.3-.85 3.82-.74 1.3.05 2.47.53 3.2 1.61-2.8 1.37-2.36 5.81.38 7.37-.2 1.24-.69 2.42-1.8 3.51zM13 5.34c.67-1.48 2.5-2.28 2.5-2.28s.16 2.05-1.35 3.66c-1.36 1.45-2.88 1.15-2.88 1.15s-.16-1.07 1.73-2.53z"/></svg>
+            Download for Free
+          </a>
+          <a class="btn-ghost" href="#key-features">Explore Features</a>
+        </div>
+      </div>
+
+      <div class="hero-art" aria-hidden="true" data-aos="zoom-in">
+        <div class="frame">
+          <img src="img/Hand.png" alt="Illustration: stage and microphone" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+
+    <section id="about" class="container" data-aos="fade-up">
+      <div class="center">
+        <h2 class="section-title">About Jokely</h2>
+        <p class="muted">Jokely helps performers and hobbyists turn sparks into jokes, practice with confidence, and measure what actually lands — all with a warm, illustrated experience.</p>
+      </div>
+    </section>
+
+    <section id="features" class="container" data-aos="fade-up">
+      <div class="feature-row" style="margin-bottom:30px">
+        <div class="feature-text">
+          <h3 class="section-title">The Complete Toolkit for Stand-Up Comedy</h3>
+        </div>
+        <div class="feature-image">
+          <div class="card" style="max-width:320px">
+            <div style="font-size:28px;margin-bottom:10px">✍️</div>
+            <div style="font-weight:700;margin-bottom:6px">Joke Editor</div>
+            <div class="muted">Draft, tag and prepare sets on the go.</div>
+          </div>
+        </div>
+      </div>
+
+     <div class="feature-row" style="margin-bottom:80px">
+       <div class="feature-text">
+         <h3 class="section-title">Write & organize</h3>
+         <p class="muted">A quick, distraction-free editor with tags and set lists so ideas are always ready for stage.</p>
+       </div>
+       <div class="feature-image" data-aos="fade-left">
+         <div class="phone-container" style="width: 240px; height: 500px;">
+           <div class="phone-frame" style="transform: rotateY(15deg);">
+             <div class="phone-screen">
+               <img src="img/WriteScreen.PNG" alt="Jokely Editor Screen">
+             </div>
+           </div>
+         </div>
+       </div>
+    </div>
+
+    <div class="feature-row" style="margin-bottom:80px">
+       <div class="feature-text">
+         <h3 class="section-title">Performance History & Future Planning</h3>
+         <p class="muted">Keep a pulse on your past performances while seamlessly scheduling your next appearances in one unified dashboard.</p>
+       </div>
+       <div class="feature-image" data-aos="fade-left">
+         <div class="phone-container" style="width: 240px; height: 500px;">
+           <div class="phone-frame" style="transform: rotateY(15deg);">
+             <div class="phone-screen">
+               <img src="img/ShowScreen.PNG" alt="Jokely Editor Screen">
+             </div>
+           </div>
+         </div>
+       </div>
+    </div>
+
+    <div class="feature-row" style="margin-bottom:80px">
+      <div class="feature-text">
+        <h3 class="section-title">Record & review</h3>
+        <p class="muted">Record rehearsals, automatically transcribe and spot timing or delivery issues quickly.</p>
+      </div>
+      <div class="feature-image" data-aos="fade-right">
+        <div class="phone-container" style="width: 240px; height: 500px;">
+          <div class="phone-frame" style="transform: rotateY(-15deg);">
+            <div class="phone-screen">
+              <img src="img/QuickPerformance.PNG" alt="Performance Mode Screen">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </section>
+
+    <section id="key-features" class="container" data-aos="fade-up">
+      <h2 class="section-title center">Key Features</h2>
+      <div class="features-grid" style="margin-top:18px">
+        <div class="card" data-aos="fade-up"><div class="feature-emoji">✍️</div><div style="font-weight:700">Editor</div><div class="muted">Fast notes, tags, version history.</div></div>
+        <div class="card" data-aos="fade-up" data-aos-delay="40"><div class="feature-emoji">🎤</div><div style="font-weight:700">Performance Mode</div><div class="muted">Set-list and timer for live shows.</div></div>
+        <div class="card" data-aos="fade-up" data-aos-delay="80"><div class="feature-emoji">🎙️</div><div style="font-weight:700">Transcription</div><div class="muted">Turn recordings into text.</div></div>
+        <div class="card" data-aos="fade-up" data-aos-delay="120"><div class="feature-emoji">📊</div><div style="font-weight:700">Analytics</div><div class="muted">Track laugh-metrics over time.</div></div>
+        <div class="card" data-aos="fade-up" data-aos-delay="160"><div class="feature-emoji">🔁</div><div style="font-weight:700">Sync</div><div class="muted">Cross-device sync.</div></div>
+        <div class="card" data-aos="fade-up" data-aos-delay="200"><div class="feature-emoji">🧠</div><div style="font-weight:700">Smart Tools</div><div class="muted">Optional AI helpers for drafts.</div></div>
+      </div>
+    </section>
+
+    <section id="reviews" class="container" data-aos="fade-up">
+      <h2 class="section-title center">Early feedback</h2>
+      <div class="reviews-grid" style="margin-bottom:16px">
+        <div class="card"><div class="quote">"A perfect little writing companion for open mic nights — intuitive and warm."</div><div style="font-weight:700">Ivan G.</div><div class="small">Open mic regular</div></div>
+        <div class="card"><div class="quote">"Recording + transcription saved me time — and helped me tweak delivery."</div><div style="font-weight:700">Sarah M.</div><div class="small">Comedy writer</div></div>
+      </div>
+    </section>
+
+    <section id="download" class="container" data-aos="fade-up">
+      <div class="notify" role="region" aria-labelledby="notify-title">
+        <div class="notify-left">
+          <h3 id="notify-title" class="section-title">Ready to hit the stage?</h3>
+          <p class="muted">Start writing your best material today. Download Jokely on iOS for free.</p>
+
+          <div class="download-area">
+             <a class="btn-primary" href="https://apps.apple.com/de/app/jokely-stand-up-comedy/id6744562322" target="_blank">
+               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.8 0 2.3-.85 3.82-.74 1.3.05 2.47.53 3.2 1.61-2.8 1.37-2.36 5.81.38 7.37-.2 1.24-.69 2.42-1.8 3.51zM13 5.34c.67-1.48 2.5-2.28 2.5-2.28s.16 2.05-1.35 3.66c-1.36 1.45-2.88 1.15-2.88 1.15s-.16-1.07 1.73-2.53z"/></svg>
+               Download for Free
+             </a>
+          </div>
+        </div>
+
+        <div class="notify-right" aria-hidden="true">
+          <img src="img/WritingFox.png" alt="Jokely mascot" loading="lazy" style="border-radius:14px;border:4px solid rgba(0,0,0,0.03);background:var(--accent-2)">
+        </div>
+      </div>
+    </section>
+
+    <section id="contacts" class="container" data-aos="fade-up">
+      <div class="center">
+        <h2 class="section-title">Contact</h2>
+        <p class="muted">For press, partnerships or feedback — jokely.co@gmail.com</p>
+        <div style="margin-top:12px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          <a class="btn-ghost" href="mailto:Jokely.co@gmail.com">Email</a>
+          <a class="btn-ghost" href="https://www.instagram.com/jokelystandup/" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="container" role="contentinfo">
+    <div class="footer-links">
+      <a href="Privacy.html">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">News</a>
+      <a href="DeleteAccount.html">Delete Data</a>
+    </div>
+    <p class="small center">© 2025 Jokely — All rights reserved</p>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      if(window.AOS) AOS.init({ duration:700, once:true, easing:'ease-out-cubic' });
+
+      // menu toggle
+      const nav = document.querySelector('nav.container');
+      const toggle = document.querySelector('.menu-toggle');
+      toggle.addEventListener('click', function(e){
+        const expanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', String(!expanded));
+        nav.classList.toggle('open');
+      });
+    });
+  </script>
 </body>
 </html>
